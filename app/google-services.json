@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "704159539672",
+    "firebase_url": "https://cleanstorage-73f39.firebaseio.com",
+    "project_id": "cleanstorage-73f39",
+    "storage_bucket": "cleanstorage-73f39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704159539672:android:fa0de9b8824720786e12ad",
+        "android_client_info": {
+          "package_name": "com.words.storageapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "704159539672-c1br8n7tnlg4olh1gcg2gu1ap6uhauki.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.words.storageapp",
+            "certificate_hash": "d0e0620c3e76751f36424f6e77a038c486882cb6"
+          }
+        },
+        {
+          "client_id": "704159539672-6cb02041vn8m48eu2rq2hpi2p79kj8a4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYl5nn03efDiAHkvOammikN8tSmBvoUUM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "704159539672-6cb02041vn8m48eu2rq2hpi2p79kj8a4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

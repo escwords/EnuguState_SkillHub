@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/ChatSent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:paddingStart="24dp"
+        android:maxWidth="256dp"
+        tools:text="Hello"
+        tools:ignore="RtlSymmetry" />
+
+    <TextView
+        android:id="@+id/ChatReceived"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:paddingStart="24dp"
+        android:layout_gravity="end"
+        android:maxWidth="256dp"
+        tools:text="Hi, how are doing"
+        tools:ignore="RtlSymmetry" />
+
+</FrameLayout>

@@ -1,0 +1,95 @@
+<resources>
+    <string name="app_name">Skills Hub</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email_hintText">Email</string>
+    <string name="password_hintText">Password</string>
+    <string name="sign_in">Login</string>
+    <string name="register">Register</string>
+    <string name="log_out">Logout</string>
+    <string name="tab_sign_in">Sign In</string>
+    <string name="tab_sign_up">Sign Up</string>
+
+
+    <!--Defining database node name-->
+    <string name="fireStore_node">skills</string>
+    <string name="db_node">skills</string>
+    <string name="messageHeader">UNN::Skilled Hub \n\n </string>
+    <string name="phone_number">Phone number</string>
+    <string name="createProfile">Create Profile</string>
+    <string name="submit">Submit</string>
+    <string name="change_picture">change picture</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="edit">Edit</string>
+    <string name="contact_detail">Contact Detail</string>
+    <string name="skill">Skill</string>
+    <string name="dashboard">DashBoard</string>
+    <string name="profile_picture">profile picture</string>
+    <string name="back_to_login">Back to Login</string>
+    <string name="address">Address</string>
+    <string name="choose_from_camera">Choose From Camera</string>
+    <string name="choose_from_memory">Choose From Memory</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="email_address">Email Address</string>
+    <string name="gender">Gender</string>
+    <string name="date_of_birth">Date Of Birth</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="add_image_to_album">Add Image To album</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="select_from_photos">Select from Photos</string>
+    <string name="take_photos">Take Photo</string>
+    <string name="profile_photo">Profile Photo</string>
+
+
+    //Permission String
+    <string name="request_permission_string">Location permission needed for core functionality</string>
+    <string name="denied_permission_string">Enable your Location in Setting</string>
+    <string name="ok">OK</string>
+    <string name="settings">SETTINGS</string>
+    <string name="sign_out">Sign out</string>
+
+    //fireStore String
+    <string name="fireStore_name">Skills</string>
+    <string name="Album_list">images</string>
+
+
+    <string name="add_work_image">Add Work Image</string>
+    <string name="search_query">Enter your search</string>
+    <string name="home">Home</string>
+    <string name="nearby">NearBy</string>
+    <string name="account">Account</string>
+    <string name="work">WokrManager</string>
+
+    <string name="album">Album</string>
+    <string name="about">About</string>
+    <string name="search_hint">Search</string>
+    <string name="searchQuery">Search Locality or Skill</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="wage_factor">Wage</string>
+    <string name="amount_Formatter">₦%s</string>
+    <string name="i_don_t_have_account_create_account">I don\'t Have Account? Create Account</string>
+    <string name="login_text">Sign In</string>
+    <string name="aboutText">About</string>
+    <string name="albumText">Album</string>
+    <string name="settingsText">Settings</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="remove">Remove</string>
+    <string name="delete">Delete</string>
+    <string name="news_feed_menu">News Feed</string>
+    <string name="account_menu">Account</string>
+    <string name="about_menu">About</string>
+    <string name="query_text">query</string>
+
+
+    //firebase database string
+    <string name="clients">clients</string>
+    <string name="address_list">Select Address</string>
+    <string name="onBoardingOne_body">Get the skills within your vicinity with no stress, and also search skill within a locality with Skill Hub</string>
+    <string name="onBoardingOne_title">Welcome to SkillHub</string>
+    <string name="onBoardingTwo_title">Evaluate Skill labour</string>
+    <string name="onBoardingTwo_body">Skill Hub let you evaluate self skill at your convenient, it provides you with skilled service at a standard charge rate</string>
+
+
+</resources>
