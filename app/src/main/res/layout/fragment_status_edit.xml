@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="uiData"
-            type="com.words.storageapp.ui.account.viewProfile.ProfileViewModel" />
+            type="com.words.storageapp.domain.FirebaseUser" />
 
     </data>
 
@@ -22,72 +21,58 @@
             <ImageView
                 android:id="@+id/backKey"
                 android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:layout_margin="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_round_cancel"
+                app:srcCompat="@drawable/arrow_back"
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id="@+id/textView57"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit Profile"
                 android:layout_marginStart="10dp"
+                android:text="Edit Profile"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 app:layout_constraintBottom_toBottomOf="@+id/backKey"
                 app:layout_constraintStart_toEndOf="@+id/backKey"
                 app:layout_constraintTop_toTopOf="@+id/backKey" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/constraintLayout5"
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileUpdate"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="8dp"
-                app:cardCornerRadius="10dp"
+                android:scaleType="centerCrop"
+                android:layout_margin="20dp"
+                android:src="@drawable/ic_icon_person"
+                app:civ_border_color="@color/blue_900"
+                app:civ_border_width="1dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/update_btn">
+                app:layout_constraintTop_toBottomOf="@+id/textView57" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/innerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/profilePics_edit"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:background="@color/blue_700"
-                        android:src="@drawable/profile_default"
-                        android:contentDescription="@string/profile_picture"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/changeIcon_btn"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/curved_top_rectangle"
-                        app:layout_constraintBottom_toBottomOf="@+id/profilePics_edit"
-                        app:layout_constraintEnd_toEndOf="@+id/profilePics_edit"
-                        app:srcCompat="@drawable/ic_camera_intent"
-                        tools:ignore="ContentDescription" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+            <ImageView
+                android:id="@+id/changeIcon_btn"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                app:layout_constraintBottom_toBottomOf="@+id/profileUpdate"
+                app:layout_constraintEnd_toEndOf="@+id/profileUpdate"
+                app:layout_constraintStart_toStartOf="@+id/profileUpdate"
+                app:layout_constraintTop_toTopOf="@+id/profileUpdate"
+                app:srcCompat="@drawable/ic_camera_intent"
+                tools:ignore="ContentDescription" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/first_name"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:hint="First Name"
                 app:boxStrokeColor="@color/blue_700"
-                app:layout_constraintEnd_toStartOf="@+id/last_name"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+                app:layout_constraintStart_toEndOf="@+id/profileUpdate"
+                app:layout_constraintTop_toBottomOf="@+id/update_btn"
                 tools:hint="First Name">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -95,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:text="@{uiData.userData.first_name}"
+                    android:text="@{uiData.firstName}"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,19 +90,18 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/last_name"
                 app:boxStrokeColor="@color/secondaryDarkColor"
-                app:layout_constraintBottom_toBottomOf="@+id/first_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/first_name"
-                app:layout_constraintTop_toTopOf="@+id/first_name"
+                app:layout_constraintStart_toEndOf="@+id/profileUpdate"
+                app:layout_constraintTop_toBottomOf="@+id/first_name"
                 tools:hint="@string/last_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/lastNameText"
-                    android:text="@{uiData.userData.last_name}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
+                    android:text="@{uiData.lastName}"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,36 +109,36 @@
                 android:id="@+id/mobile"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:hint="mobile"
                 app:boxStrokeColor="@color/secondaryDarkColor"
-                app:layout_constraintStart_toStartOf="@+id/first_name"
-                app:layout_constraintTop_toBottomOf="@+id/first_name"
+                app:layout_constraintEnd_toStartOf="@+id/skillNameText"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/last_name"
                 tools:hint="mobile">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/mobileBox"
-                    android:text="@{uiData.userData.mobile}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
+                    android:text="@{uiData.mobile}"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/wage"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="charge"
-                app:layout_constraintEnd_toEndOf="@+id/last_name"
-                app:layout_constraintStart_toStartOf="@+id/last_name"
-                app:layout_constraintTop_toBottomOf="@+id/first_name"
-                tools:hint="charge">
+                android:layout_marginTop="5dp"
+                android:hint="Account Name"
+                app:layout_constraintEnd_toEndOf="@+id/skillNameText"
+                app:layout_constraintStart_toStartOf="@+id/service"
+                app:layout_constraintTop_toBottomOf="@+id/service">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/wageBox"
-                    android:text="@{uiData.userData.wageRate}"
+                    android:id="@+id/accountName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
@@ -165,20 +149,18 @@
                 android:id="@+id/skillNameText"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="skills"
-                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout5"
-                app:layout_constraintEnd_toEndOf="@+id/last_name"
-                app:layout_constraintStart_toEndOf="@+id/constraintLayout5"
-                app:layout_constraintTop_toBottomOf="@+id/update_btn"
-                tools:hint="skills">
+                android:hint="skill"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/mobile"
+                app:layout_constraintTop_toTopOf="@+id/mobile">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/skillsBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:text="@{uiData.userData.skills}"
+                    android:text="@{uiData.skill}"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -187,20 +169,20 @@
                 android:id="@+id/service"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="Service Offered 1"
+                android:layout_marginTop="5dp"
+                android:hint="Service Offered"
                 app:boxStrokeColor="@color/secondaryDarkColor"
-                app:layout_constraintEnd_toEndOf="@+id/wage"
+                app:layout_constraintEnd_toEndOf="@+id/skillNameText"
                 app:layout_constraintStart_toStartOf="@+id/mobile"
                 app:layout_constraintTop_toBottomOf="@+id/mobile"
-                tools:hint="Service Offered 1">
+                tools:hint="Service Offered">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/serviceBox"
-                    android:text="@{uiData.userData.serviceOffered1}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
+                    android:text="@{uiData.serviceOffered}"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -208,15 +190,14 @@
                 android:id="@+id/service1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Service Offered 2"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
+                android:hint="Account Number"
                 app:layout_constraintEnd_toEndOf="@+id/wage"
                 app:layout_constraintStart_toStartOf="@+id/mobile"
-                app:layout_constraintTop_toBottomOf="@+id/service"
-                tools:hint="Service Offered 2">
+                app:layout_constraintTop_toBottomOf="@+id/wage">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/service1Box"
+                    android:id="@+id/accountNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
@@ -225,39 +206,16 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/experience"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
-                android:hint="Experience"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="200dp"
+                android:hint="locality"
+                app:layout_constraintEnd_toEndOf="@+id/service1"
                 app:layout_constraintStart_toStartOf="@+id/mobile"
-                app:layout_constraintTop_toBottomOf="@+id/service1"
-                tools:hint="Experience">
+                app:layout_constraintTop_toBottomOf="@+id/service1">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/experienceBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:text="@{uiData.userData.experience}"
-                    android:textSize="15sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/locality_name"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:hint="locality"
-                app:boxStrokeColor="@color/secondaryDarkColor"
-                app:layout_constraintEnd_toEndOf="@+id/service1"
-                app:layout_constraintStart_toStartOf="@+id/wage"
-                app:layout_constraintTop_toTopOf="@+id/experience"
-                tools:hint="locality">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/localityNameText"
-                    android:text="@{uiData.userData.locality}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
@@ -270,13 +228,78 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="save"
-                android:textSize="16sp"
                 android:backgroundTint="@color/blue_900"
-                android:textColor="@color/colorWhite"
+                android:text="save"
                 android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/locationBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Set Location"
+                app:icon="@drawable/location_on_24dp"
+                app:layout_constraintStart_toStartOf="@+id/experience"
+                app:layout_constraintTop_toBottomOf="@+id/experience" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Latitude"
+                app:layout_constraintEnd_toStartOf="@+id/textView14"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/locationBtn" />
+
+            <TextView
+                android:id="@+id/latitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/green_900"
+                android:text="@{uiData.latitude.toString()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textView23"
+                app:layout_constraintStart_toStartOf="@+id/textView23"
+                app:layout_constraintTop_toBottomOf="@+id/textView23"
+                tools:text="6.23453" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Longitude"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView23"
+                app:layout_constraintTop_toTopOf="@+id/textView23" />
+
+            <TextView
+                android:id="@+id/longitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/green_900"
+                android:text="@{uiData.longitude.toString()}"
+                app:layout_constraintEnd_toEndOf="@+id/textView14"
+                app:layout_constraintStart_toStartOf="@+id/textView14"
+                app:layout_constraintTop_toBottomOf="@+id/textView14"
+                tools:text="7.53454" />
+
+            <ProgressBar
+                android:id="@+id/progressBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/locationBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/locationBtn"
+                app:layout_constraintTop_toTopOf="@+id/locationBtn" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -290,5 +313,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
 </layout>

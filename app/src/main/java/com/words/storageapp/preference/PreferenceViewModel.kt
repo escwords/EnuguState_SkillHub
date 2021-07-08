@@ -10,10 +10,6 @@ class PreferenceViewModel @Inject constructor(val db: AppDatabase) : ViewModel()
     }
 
     val addressString = Transformations.map(addresses) { it ->
-        it.map { it.address }
-    }
-
-    val localityString = addresses.map { localities ->
-        localities.map { it.locality }
+        it.map { }
     }
 }

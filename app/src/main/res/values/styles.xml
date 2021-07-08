@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="Theme.SkillHub" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorOnPrimary">@color/blue_900</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorPrimary">@color/blue_700</item>
+        <item name="colorOnPrimary">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/blue_900</item>
         <item name="colorSecondary">@color/primaryColor</item>
         <item name="colorOnSecondary">@color/secondaryTextColor</item>
         <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
@@ -16,8 +16,8 @@
         <item name="colorAccent">@color/blue_700</item>
         <item name="colorError">@color/colorRed</item>
         <item name="colorOnError">@color/primaryTextColor</item>
-        <item name="android:fontFamily">@font/open_san_light</item>
-        <item name="colorControlNormal">@color/blue_900</item>
+        <item name="android:fontFamily">@font/open_san_bold</item>
+        <item name="colorControlNormal">@color/blue_700</item>
         <item name="materialCardViewStyle">@style/myCustomCardView</item>
         <item name="bottomNavigationStyle">@style/bottomNav</item>
         <item name="textAppearanceHeadline6">@style/subHeader</item>
@@ -43,8 +43,15 @@
     <!--End of styling bottom navigation bar-->
 
     <!--styling top app bar here-->
-    <style name="Widget.materialComponent.TopBar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+    <style name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.custom">
+        <item name="boxStrokeColor">@color/blue_900</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.OutlineBox</item>
+    </style>
 
+    <style name="ThemeOverlay.App.OutlineBox" parent="">
+        <item name="colorPrimary">@color/blue_900</item>
+        <item name="colorSecondary">@color/blue_900</item>
     </style>
     <!--    End of styling top app bar -->
 
@@ -72,12 +79,6 @@
         <item name="android:textSize">15sp</item>
     </style>
 
-    <!--Configuring textAppearance for subTitle-->
-    <style name="TextAppearance.MaterialComponents.Headline6.subTitle">
-
-    </style>
-
-
     <style name="mediumText" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textColor">@color/secondaryTextColor</item>
     </style>
@@ -87,10 +88,26 @@
         <item name="android:textSize">28sp</item>
     </style>
 
-    <style name="bottomNavStyle" parent="Widget.Design.BottomNavigationView">
-        <item name="android:textStyle">bold</item>
-        <item name="colorOnSurface">@color/primaryTextColor</item>
+    <style name="bottomNavStyle" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+        <item name="fontFamily">@font/open_san_bold</item>
         <item name="android:textAppearance">@style/TextAppearance.buttonText</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+        <item name="colorPrimary">@color/colorWhite</item>
+    </style>
+
+    //styling the button of admin dashboard card
+
+    <style name="blue_button" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button</item>
+        <item name="cardCornerRadius">5dp</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Button" parent="">
+        <item name="colorPrimary">@color/blue_900</item>
+        <item name="colorOnPrimary">@color/colorWhite</item>
     </style>
 
     //configuring profile screen appearance
@@ -110,13 +127,11 @@
     </style>
 
     <style name="TextAppearance.buttonText" parent="TextAppearance.MaterialComponents.Headline5">
-        <item name="android:textSize">15sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="TextAppearance.title" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <!--Don't delete in use by profile fragment-->
@@ -172,8 +187,13 @@
         <item name="android:textColor">@color/secondaryTextColor</item>
     </style>
 
-    <style name="Widget.App.searchToolbar" parent="Widget.MaterialComponents.Toolbar">
-        <item name="background">@drawable/rectangle_shape</item>
+    <style name="Widget.App.myToolBar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Toolbar</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Toolbar" parent="">
+        <item name="android:colorPrimary">@color/blue_700</item>
+        <item name="colorControlNormal">@color/colorWhite</item>
     </style>
 
 

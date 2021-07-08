@@ -2,70 +2,79 @@ package com.words.storageapp.database.model
 
 import androidx.room.*
 
-@Entity(tableName = "all_skills")
+@Entity(tableName = "all_skills", indices = [Index(value = ["id"], unique = true)])
 data class AllSkillsDbModel(
-    @ColumnInfo(name = "id") val id: String?,
-    @ColumnInfo(name = "first_name") val firstName: String?,
-    @ColumnInfo(name = "last_name") val lastName: String?,
-    @ColumnInfo(name = "email") val email: String?,
-    @ColumnInfo(name = "accountState") val accountActive: Boolean?,
-    @ColumnInfo(name = "phone") val mobile: String?,
-    @ColumnInfo(name = "address") val address: String?,
-    @ColumnInfo(name = "experience") val experience: String?,
-    @ColumnInfo(name = "education") val education: String?,
-    @ColumnInfo(name = "gender") val gender: String?,
-    @ColumnInfo(name = "charges") val charges: String?,
-    @ColumnInfo(name = "image_url") val imageUrl: String?,
-    @ColumnInfo(name = "skillId") val skillId: String?,
-    @ColumnInfo(name = "serviceOffered1") val serviceOffered1: String?,
-    @ColumnInfo(name = "date") val date: String?,
-    @ColumnInfo(name = "latitude") val latitude: String?,
-    @ColumnInfo(name = "longitude") val longitude: String?,
-    @ColumnInfo(name = "locality") val locality: String?,
-    @ColumnInfo(name = "skills") val skills: String?
+    @ColumnInfo(name = "id") var id: String, //don't assign rowId to this variable, resulted to constraint error
+    @ColumnInfo(name = "firstName") var firstName: String?,
+    @ColumnInfo(name = "lastName") var lastName: String?,
+    @ColumnInfo(name = "accountName") var accountName: String?,
+    @ColumnInfo(name = "accountNumber") var accountNumber: String?,
+    @ColumnInfo(name = "accountStatus") var accountStatus: String?,
+    @ColumnInfo(name = "phone") var mobile: String?,
+    @ColumnInfo(name = "imageUrl") var imageUrl: String?,
+    @ColumnInfo(name = "skillId") var skillId: String?,
+    @ColumnInfo(name = "serviceOffered") var serviceOffered: String?,
+    @ColumnInfo(name = "starNum") var starNum: Double?,
+    @ColumnInfo(name = "date") var date: Long?,
+    @ColumnInfo(name = "latitude") var latitude: Double?,
+    @ColumnInfo(name = "longitude") var longitude: Double?,
+    @ColumnInfo(name = "locality") var locality: String?,
+    @ColumnInfo(name = "skill") var skill: String?
 ) {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "row_id")
+    @ColumnInfo(name = "rowId")
     var rowId: Int = 0
 }
 
-data class Coordinate(
-    @ColumnInfo(name = "latitude") val latitude: String?,
-    @ColumnInfo(name = "longitude") val longitude: String?
+@Entity(
+    tableName = "comment_table",
+    foreignKeys = [ForeignKey(
+        entity = AllSkillsDbModel::class,
+        parentColumns = ["id"],
+        childColumns = ["laborerId"]
+    )],
+    indices = [Index("laborerId")]
+)
+data class CommentDbModel(
+    @ColumnInfo(name = "commentId") var commentId: String,
+    @ColumnInfo(name = "laborerId") var laborerId: String,
+    @ColumnInfo(name = "comment") var comment: String?,
+    @ColumnInfo(name = "starNum") var starNum: Double?,
+    @ColumnInfo(name = "timeStamp") var timeStamp: Long?,
+    @ColumnInfo(name = "authorId") var authorId: String?,
+    @ColumnInfo(name = "authorFName") var authorFName: String?,
+    @ColumnInfo(name = "authorUrl") var authorUrl: String?
+) {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "rowId")
+    var rowId = 0
+}
+
+data class AllSkillAndComments(
+    @Embedded var allSkills: AllSkillsDbModel,
+    @Relation(parentColumn = "id", entityColumn = "laborerId")
+    var comments: List<CommentDbModel>
 )
 
 @Fts4(contentEntity = AllSkillsDbModel::class)
 @Entity(tableName = "fts_table")
 data class AllSkillsFts(
-    @ColumnInfo(name = "locality") val locality: String?,
-    @ColumnInfo(name = "skills") val skills: String?
+    @ColumnInfo(name = "skillId") var skillId: String,
+    @ColumnInfo(name = "firstName") var firstName: String?,
+    @ColumnInfo(name = "lastName") var lastName: String?,
+    @ColumnInfo(name = "skill") var skill: String?
 )
 
 data class MiniSkillModel(
-    @ColumnInfo(name = "id") val id: String?,
-    @ColumnInfo(name = "skillId") val skillId: String?,
-    @ColumnInfo(name = "first_name") val first_name: String?,
-    @ColumnInfo(name = "accountState") val accountActive: Boolean?,
-    @ColumnInfo(name = "last_name") val last_name: String?,
-    @ColumnInfo(name = "skills") val skills: String?,
-    @ColumnInfo(name = "locality") val locality: String?,
-    @ColumnInfo(name = "image_url") val image_url: String?
+    var id: String?,
+    var skillId: String?,
+    var firstName: String?,
+    var accountStatus: String?,
+    var lastName: String?,
+    var skill: String?,
+    var locality: String?,
+    var imageUrl: String?,
+    var latitude: Double?,
+    var longitude: Double?
 )
 
-//make sure that the data your fetching is  mapped with columnInfo annotation
-data class DetailWokrData(
-    @ColumnInfo(name = "row_id") val rowId: Int?,
-    @ColumnInfo(name = "first_name") val first_name: String?,
-    @ColumnInfo(name = "last_name") val last_name: String?,
-    @ColumnInfo(name = "phone") val mobile: String?,
-    @ColumnInfo(name = "accountState") val accountActive: Boolean?,
-    @ColumnInfo(name = "skills") val skills: String?,
-    @ColumnInfo(name = "image_url") val image_url: String?,
-    @ColumnInfo(name = "locality") val locality: String?,
-    @ColumnInfo(name = "skillId") val skillId: String?,
-    @ColumnInfo(name = "address") val address: String?,
-    @ColumnInfo(name = "gender") val gender: String?,
-    @ColumnInfo(name = "serviceOffered1") val serviceOffered1: String?,
-    @ColumnInfo(name = "experience") val experience: String?,
-    @ColumnInfo(name = "charges") val charges: String?
-)

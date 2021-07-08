@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="skill_Cat_drawables">
+        <item>@drawable/carpenter</item>
+        <item>@drawable/driver</item>
+        <item>@drawable/electrician</item>
+        <item>@drawable/mason</item>
+        <item>@drawable/welder</item>
+        <item>@drawable/roofing</item>
+        <item>@drawable/plumber</item>
+        <item>@drawable/painting</item>
+        <item>@drawable/laborer</item>
+        <item>@drawable/ac</item>
+        <item>@drawable/mechanics</item>
+        <item>@drawable/sand</item>
+    </array>
+</resources>

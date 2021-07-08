@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.words.storageapp.ui.account.viewProfile.ProfileViewModel" />
+            type="com.words.storageapp.laborer.viewProfile.ProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,12 +18,13 @@
             android:id="@+id/actionBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            style="@style/Widget.App.myToolBar"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@color/colorWhite"
+            android:background="@color/blue_700"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="Skill Profile"
-            app:titleTextColor="@color/blue_900"
+            app:title="SP Dashboard"
+            app:titleTextColor="@color/colorWhite"
             app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             app:menu="@menu/profile_topnav" />
 
@@ -85,19 +86,6 @@
                         app:layout_constraintTop_toTopOf="@+id/view10" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
-                    android:id="@+id/changeIconBtn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/curved_top_rectangle"
-                    android:padding="3dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/innerView"
-                    app:layout_constraintEnd_toEndOf="@+id/innerView"
-                    app:layout_constraintTop_toBottomOf="@+id/innerView"
-                    app:srcCompat="@drawable/ic_camera_intent"
-                    app:tint="@color/primaryDarkColor"
-                    tools:ignore="ContentDescription" />
-
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/nameCard"
                     android:layout_width="match_parent"
@@ -135,13 +123,13 @@
                             tools:ignore="ContentDescription" />
 
                         <TextView
-                            android:id="@+id/textView25"
+                            android:id="@+id/clientName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:text="@{viewModel.userData.last_name}"
-                            android:textSize="19sp"
-                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:textAppearance="@style/TextAppearance.title"
                             app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                             app:layout_constraintStart_toEndOf="@+id/imageView12"
                             app:layout_constraintTop_toTopOf="@+id/imageView12"
@@ -153,10 +141,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:text="@{viewModel.userData.first_name}"
-                            android:textSize="19sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toEndOf="@+id/textView25"
-                            app:layout_constraintTop_toTopOf="@+id/textView25"
+                            android:textSize="18sp"
+                            android:textAppearance="@style/TextAppearance.title"
+                            app:layout_constraintStart_toEndOf="@+id/clientName"
+                            app:layout_constraintTop_toTopOf="@+id/clientName"
                             tools:text="Emmanuel" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -205,7 +193,7 @@
                                 android:layout_marginStart="5dp"
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
-                                android:text="@{viewModel.userData.serviceOffered1}"
+                                android:text="@{viewModel.userData.serviceOffered}"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -252,8 +240,7 @@
                             android:layout_marginBottom="5dp"
                             android:text="@{viewModel.userData.skills}"
                             android:textColor="@color/primaryDarkColor"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
+                            android:textSize="18sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/skillTitle"
                             app:layout_constraintTop_toBottomOf="@+id/skillTitle"
@@ -288,11 +275,11 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/blue_700"
                     android:padding="3dp"
-                    android:text="Settings"
+                    android:text="Jobs"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp"
                     android:textAllCaps="false"
-                    app:icon="@drawable/ic_settings_black_48dp"
+                    app:icon="@drawable/ic_work_48px"
                     app:iconTint="@color/colorWhite"
                     app:layout_constraintBottom_toBottomOf="@+id/worksBtn"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -1,21 +1,23 @@
 package com.words.storageapp.ui.main
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.location.Geocoder
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.renderscript.Sampler
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -25,15 +27,18 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.words.storageapp.MyApplication
 import com.words.storageapp.R
+import com.words.storageapp.authentication.PersonDetail
 import com.words.storageapp.database.AppDatabase
-import com.words.storageapp.database.model.AllSkillsDbModel
+import com.words.storageapp.database.model.AddressModel
 import com.words.storageapp.di.dagger.AppLevelComponent
-import com.words.storageapp.domain.RegisterUser
-import com.words.storageapp.domain.toWokrData
-import com.words.storageapp.ui.account.user.UserManager
+import com.words.storageapp.domain.FirebaseUser
+import com.words.storageapp.domain.toAllSkillsModel
+import com.words.storageapp.ui.UserManager
+import com.words.storageapp.util.Constants.ADDRESS_REQUESTED
 import com.words.storageapp.util.utilities.ConnectivityChecker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -43,13 +48,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     var connectivityChecker: ConnectivityChecker? = null
+    val registerModel = PersonDetail()
 
     lateinit var daggerAppLevelComponent: AppLevelComponent
     private lateinit var navController: NavController
     private lateinit var databaseReference: DatabaseReference
     private lateinit var skillDatabase: DatabaseReference
     private lateinit var skillListener: ValueEventListener
-    private val skillsData = mutableListOf<AllSkillsDbModel>()
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var isListening: Boolean = false
 
     val sharedPref: SharedPreferences by lazy {
@@ -74,20 +80,32 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.mainNavHost)
         databaseReference = Firebase.database.reference
         skillDatabase = databaseReference.child("skills")
-
         setListener()
+
         bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         setUpBottomNav(navController)
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
-            if (destination.id == R.id.authFragment ||
+            if (
                 destination.id == R.id.searchFragment ||
                 destination.id == R.id.skilledFragment2 ||
                 destination.id == R.id.locationFragment ||
                 destination.id == R.id.editAlbumFragment ||
                 destination.id == R.id.profileImageFragment ||
                 destination.id == R.id.onboardingFragment ||
-                destination.id == R.id.addressDialogFragment
+                destination.id == R.id.addressDialogFragment ||
+                destination.id == R.id.skillFragment ||
+                destination.id == R.id.adminFragment ||
+                destination.id == R.id.admin_skill_fragment ||
+                destination.id == R.id.processFragment ||
+                destination.id == R.id.paymentFragment ||
+                destination.id == R.id.fullPhotoFragment ||
+                destination.id == R.id.registerFragment ||
+                destination.id == R.id.clientRegistration ||
+                destination.id == R.id.loginFragment ||
+                destination.id == R.id.preferenceFragment ||
+                destination.id == R.id.configureFragment
             ) {
                 bottomNav.visibility = View.GONE
             } else {
@@ -113,6 +131,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        val isAddressAval = sharedPref.getBoolean(ADDRESS_REQUESTED, true)
+        //consider putting this if condition inside the network section
+        if (!isAddressAval) {
+            connectivityChecker?.apply {
+                lifecycle.addObserver(this)
+                connectedStatus.observe(this@MainActivity, Observer {
+                    if (it) {
+
+                    }
+                })
+            }
+        }
+    }
+
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount > 0) {
             supportFragmentManager.popBackStack()
@@ -135,42 +169,60 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        skillDatabase.addValueEventListener(skillListener)
+        //skillDatabase.addValueEventListener(skillListener)
+        stopListening()
     }
 
-
-//    fun initDBFromFirebase() {
-//        skillDatabase.get().addOnSuccessListener {
-//            it.children.mapNotNullTo(skillsData){ data ->
-//                data.getValue(RegisterUser::class.java)?.toWokrData()
-//            }.also {
-//                Toast.makeText(applicationContext,"skills: $skillsData", Toast.LENGTH_SHORT).show()
-//                lifecycleScope.launch(Dispatchers.IO){
-//                    db.allSkillsDbDao().insertAll(skillsData)
-//                }
-//            }
-//        }
-//    }
-//
-
     private fun setListener() {
-
         isListening = true
         skillListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
-
             override fun onDataChange(snapshot: DataSnapshot) {
-                snapshot.children.mapNotNullTo(skillsData) { data ->
-                    data.getValue(RegisterUser::class.java)?.toWokrData()
+                snapshot.children.mapNotNull { data ->
+                    data.getValue(FirebaseUser::class.java)?.toAllSkillsModel()
                 }.also {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        db.allSkillsDbDao().insertAll(skillsData)
+                        db.allSkillsDbDao().insertAll(it)
                     }
                 }
             }
         }
+    }
+
+//    @SuppressLint("MissingPermission")
+//    private fun getAddress() {
+//        Timber.i("getAddress called")
+//        fusedLocationProviderClient.lastLocation?.addOnSuccessListener(
+//            this,
+//            OnSuccessListener { location ->
+//                if (location == null) {
+//                    Timber.i("onSuccess::null")
+//                    return@OnSuccessListener
+//                }
+//                lifecycleScope.launch(Dispatchers.IO) {
+//                    val addressModel = AddressModel(
+//                        lastLocation!!.latitude,
+//                        lastLocation!!.longitude
+//                    )
+//                    localDb.addressDao().insertAddress(addressModel)
+//                    storeLocation()
+//                }
+//
+//
+//                if (!Geocoder.isPresent()) {
+//                    Timber.i("OnSuccess::GeoCoder is not present")
+//                    addressNoAvailable()
+//                    return@OnSuccessListener
+//                }
+//                //if address is available don't' find address again
+//                startIntentService()
+//            })
+//    }
+
+    private fun stopListening() {
+        skillDatabase.removeEventListener(skillListener)
     }
 
     fun hideKeyBoard(view: View) {

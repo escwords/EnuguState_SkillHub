@@ -42,7 +42,7 @@ class AddressDialogFragment : DialogFragment() {
         val adapter = AddressListAdapter(
             args, AddressClickListener {
                 storeLocationDetails(it)
-                val action = R.id.action_addressDialogFragment_to_homeFragment
+                val action = R.id.action_addressDialogFragment_to_startFragment
                 findNavController().navigate(action)
             })
 

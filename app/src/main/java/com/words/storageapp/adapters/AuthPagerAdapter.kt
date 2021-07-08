@@ -2,8 +2,8 @@ package com.words.storageapp.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.words.storageapp.ui.account.LoginFragment
-import com.words.storageapp.ui.account.RegistrationFragment
+import com.words.storageapp.laborer.LoginFragment
+import com.words.storageapp.authentication.RegistrationFragment
 
 class AuthPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 

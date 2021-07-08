@@ -3,7 +3,7 @@ package com.words.storageapp.database.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.words.storageapp.domain.RegisterUser
+import com.words.storageapp.domain.FirebaseUser
 
 
 @Entity(tableName = "client_table")
@@ -21,14 +21,12 @@ data class ClientDbModel(
 )
 
 
-fun RegisterUser.toClientDbModel(): ClientDbModel {
+fun FirebaseUser.toClientDbModel(): ClientDbModel {
     return ClientDbModel(
         id = skillId!!,
         first_name = firstName,
         last_name = lastName,
         imageUrl = imageUrl,
-        address = address,
-        gender = gender,
-        phoneNumber = phone
+        phoneNumber = mobile
     )
 }

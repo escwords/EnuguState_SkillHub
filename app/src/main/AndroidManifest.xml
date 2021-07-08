@@ -21,17 +21,15 @@
         android:theme="@style/Theme.SkillHub"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:screenOrientation="portrait">
-
+        <activity android:name=".home.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:screenOrientation="portrait"></activity>
 
         <service
             android:name=".util.utilities.FetchAddressIntentService"
@@ -40,7 +38,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
     </application>
 
 </manifest>

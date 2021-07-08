@@ -5,8 +5,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.account.AuthFragment">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/textView7"
@@ -53,14 +52,14 @@
 
         <ImageView
             android:id="@+id/closeBtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
             android:layout_margin="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_round_arrow_back"
-            android:background="@drawable/circle_transparent_background"
-            tools:ignore="ContentDescription" />
+            app:srcCompat="@drawable/arrow_back"
+            tools:ignore="ContentDescription"
+            app:tint="@color/blue_900" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

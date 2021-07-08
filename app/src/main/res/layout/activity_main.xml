@@ -13,6 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
+        android:elevation="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,14 +25,17 @@
         style="@style/bottomNavStyle"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:elevation="20dp"
         android:paddingBottom="10dp"
-        app:itemIconSize="30dp"
+        app:elevation="50dp"
+        android:padding="5dp"
+        app:itemIconSize="25dp"
+        android:background="@color/black_100"
         app:itemIconTint="@color/bottom_nav_selector"
         app:itemTextColor="@color/bottom_nav_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

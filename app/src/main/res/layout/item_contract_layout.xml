@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageItem"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="25dp"
+        android:contentDescription="@string/profile_picture"
+        android:src="@drawable/ic_icon_person"
+        app:civ_border_width="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView9"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.23000002" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_remove"
+        app:layout_constraintBottom_toBottomOf="@+id/imageItem"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageItem"
+        app:layout_constraintVertical_bias="0.502"
+        app:tint="@color/transparentBlack" />
+
+    <TextView
+        android:id="@+id/fullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@+id/imageItem"
+        app:layout_constraintTop_toTopOf="@+id/imageItem"
+        tools:text="Nnamani Emmanuel" />
+
+    <TextView
+        android:id="@+id/skillText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:textAppearance="@style/TextAppearance.title"
+        android:textColor="@color/green_900"
+        app:layout_constraintStart_toEndOf="@+id/view9"
+        app:layout_constraintTop_toBottomOf="@+id/fullName"
+        tools:text="Plumber" />
+
+    <View
+        android:id="@+id/view9"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:background="@drawable/blue_circle"
+        app:layout_constraintBottom_toBottomOf="@+id/skillText"
+        app:layout_constraintStart_toStartOf="@+id/fullName"
+        app:layout_constraintTop_toBottomOf="@+id/fullName" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/yellow_700"
+        android:text="Rate"
+        android:textAllCaps="false"
+        app:cornerRadius="5dp"
+        app:layout_constraintEnd_toStartOf="@+id/payBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/payBtn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/payBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/green_900"
+        android:text="Pay"
+        android:layout_marginTop="15dp"
+        android:textAllCaps="false"
+        app:cornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnRate"
+        app:layout_constraintTop_toBottomOf="@+id/imageItem" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@color/transparentBlack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,23 @@ class AboutFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentAboutBinding.inflate(inflater, container, false)
+        val title = binding.bTitle
+        val body = binding.chargeText
+
+        val content = listOf(
+            """
+            A Project Submitted to the Department of Computer Science In Partial fulfilment of the requirement for the award of Bsc.(B.A Hons) Degree in Computer Science
+        """.trimIndent(),
+            """
+                Credit: 
+                
+                Designer: Nnamani Emmanuel 
+                
+                SuperVisor: Dr. Honor Nwagwu
+            """.trimIndent()
+        )
+        title.text = content[0]
+        body.text = content[1]
         return binding.root
     }
 

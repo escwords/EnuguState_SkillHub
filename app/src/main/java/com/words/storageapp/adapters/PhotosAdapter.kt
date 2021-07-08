@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.words.storageapp.databinding.ItemAlbumListBinding
 import com.words.storageapp.domain.Photo
+import com.words.storageapp.generated.callback.OnClickListener
 
-class PhotosAdapter : ListAdapter<Photo, PhotosAdapter.PhotoViewHolder>(itemUtil) {
+class PhotosAdapter(private val itemOnClickListener: AddressClickListener) :
+    ListAdapter<Photo, PhotosAdapter.PhotoViewHolder>(itemUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         return PhotoViewHolder.from(parent)
@@ -17,14 +19,22 @@ class PhotosAdapter : ListAdapter<Photo, PhotosAdapter.PhotoViewHolder>(itemUtil
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, itemOnClickListener)
     }
 
     class PhotoViewHolder(val binding: ItemAlbumListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(photoItem: Photo) {
+        fun bind(
+            photoItem: Photo,
+            listener: AddressClickListener
+        ) {
+
             binding.photo = photoItem
+
+            binding.btnView.setOnClickListener {
+                listener.onClick(photoItem.photoUrl)
+            }
 
             Glide.with(itemView.context)
                 .load(photoItem.photoUrl)

@@ -1,116 +1,173 @@
 package com.words.storageapp.domain
 
+import android.os.Parcelable
 import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.ServerTimestamp
 import com.words.storageapp.database.model.LabourerDbModel
 import com.words.storageapp.database.model.AllSkillsDbModel
-import java.util.*
-
-fun RegisterUser.toLoggedInUser(): LabourerDbModel {
-    return LabourerDbModel(
-        id = skillId ?: "",
-        first_name = firstName,
-        last_name = lastName,
-        email = email,
-        accountActive = accountActive,
-        image_url = imageUrl,
-        mobile = phone,
-        address = address,
-        state = state,
-        lga = lga,
-        locality = locality,
-        dob = dob,
-        gender = gender,
-        wageRate = wageRate,
-        skills = skills,
-        experience = experience,
-        serviceOffered1 = serviceOffered,
-        serviceOffered2 = serviceOffered2,
-        date_joined = date_joined
-    )
-}
+import com.words.storageapp.database.model.CommentDbModel
+import kotlinx.android.parcel.Parcelize
 
 
-fun RegisterUser.toWokrData(): AllSkillsDbModel {
+fun FirebaseUser.toAllSkillsModel(): AllSkillsDbModel {
     return AllSkillsDbModel(
-        id = skillId,
-        firstName = this.firstName,
+        id = skillId!!,
+        accountStatus = accountStatus,
+        firstName = firstName,
         lastName = lastName,
-        email = email,
-        mobile = phone,
-        address = address,
-        experience = experience,
-        education = education,
-        accountActive = accountActive,
-        gender = gender,
-        charges = wageRate,
+        mobile = mobile,
         imageUrl = imageUrl,
         skillId = skillId,
-        serviceOffered1 = serviceOffered,
-        date = date_joined.toString(),
+        serviceOffered = serviceOffered,
+        date = timeStamp,
         latitude = latitude,
-        longitude = longitude,
+        longitude = latitude,
         locality = locality,
-        skills = skills
+        skill = skill,
+        starNum = starNum,
+        accountName = accountName,
+        accountNumber = accountNumber
     )
 }
 
-//register user data model
+fun List<FirebaseFetchUser>.toAllSkillsModel(): List<AllSkillsDbModel> {
+    return this.map {
+        AllSkillsDbModel(
+            id = it.skillId!!,
+            accountStatus = it.accountStatus,
+            firstName = it.firstName,
+            lastName = it.lastName,
+            mobile = it.mobile,
+            imageUrl = it.imageUrl,
+            skillId = it.skillId,
+            serviceOffered = it.serviceOffered,
+            date = it.timeStamp,
+            latitude = it.latitude,
+            longitude = it.latitude,
+            locality = it.locality,
+            skill = it.skill,
+            starNum = it.starNum,
+            accountName = it.accountName,
+            accountNumber = it.accountNumber
+        )
+    }
+}
+
 @IgnoreExtraProperties
-data class RegisterUser(
-    var address: String? = null,
-    var accountStatus: Int? = null,
-    var accountInfo: String? = null,
-    var accountType: String? = null,
-    @ServerTimestamp var date_joined: Date? = null,
-    var dob: String? = null,
-    var education: String? = null,
-    var accountActive: Boolean? = null,
-    var email: String? = null,
-    var experience: String? = null,
+@Parcelize
+data class FirebaseUser(
+    var id: String? = null,
+    var accountStatus: String? = null,
     var firstName: String? = null,
-    var gender: String? = null,
-    var imageUrl: String? = null,
     var lastName: String? = null,
-    var lga: String? = null,
+    var imageUrl: String? = null,
+    var accountNumber: String? = null,
+    var accountName: String? = null,
     var locality: String? = null,
-    var phone: String? = null,
+    var mobile: String? = null,
     var serviceOffered: String? = null, // this field contains more of what the user can do
-    var serviceOffered2: String? = null,
     var skillId: String? = null,
-    var skills: String? = null,
-    var state: String? = null,
-    var wageRate: String? = null,
-    var latitude: String? = null,
-    var longitude: String? = null
+    var skill: String? = null,
+    var starNum: Double? = 2.0,
+    var latitude: Double? = null,
+    var longitude: Double? = null,
+    @ServerTimestamp var timeStamp: Long = System.currentTimeMillis()
+) : Parcelable
+
+@IgnoreExtraProperties
+data class FirebaseFetchUser(
+    var id: String? = null,
+    var accountStatus: String? = null,
+    var firstName: String? = null,
+    var lastName: String? = null,
+    var imageUrl: String? = null,
+    var accountNumber: String? = null,
+    var accountName: String? = null,
+    var locality: String? = null,
+    var mobile: String? = null,
+    var serviceOffered: String? = null, // this field contains more of what the user can do
+    var skillId: String? = null,
+    var skill: String? = null,
+    var comments: List<FirebaseComment>? = null,
+    var starNum: Double? = 2.0,
+    var latitude: Double? = null,
+    var longitude: Double? = null,
+    var timeStamp: Long = System.currentTimeMillis()
 )
 
 @IgnoreExtraProperties
-data class NearBySkill(
-    val firstName: String? = null,
-    val lastName: String? = null,
-    val locality: String? = null,
-    val skillId: String? = null
+@Parcelize
+data class FirebaseContract(
+    var accountName: String? = null,
+    var accountNumber: String? = null,
+    var contractId: String? = null,
+    var clientId: String? = null,
+    var laborerFName: String? = null,
+    var laborerLName: String? = null,
+    var laborerId: String? = null,
+    var laborerUrl: String? = null,
+    var skill: String? = null,
+    var time: Long = System.currentTimeMillis()
+) : Parcelable
+
+
+fun List<FirebaseComment>.toCommentsDb(): List<CommentDbModel> {
+    return this.map {
+        CommentDbModel(
+            commentId = it.commentId!!,
+            laborerId = it.laborerId!!,
+            authorFName = it.author,
+            authorId = it.authorId,
+            authorUrl = it.authorUrl,
+            comment = it.comment,
+            starNum = it.starNum,
+            timeStamp = it.timeStamp
+        )
+    }
+}
+
+@IgnoreExtraProperties
+data class FirebaseComment(
+    var commentId: String? = null,
+    var laborerId: String? = null,
+    var authorId: String? = null,
+    var author: String? = null,
+    var authorUrl: String? = null,
+    var comment: String? = null,
+    var starNum: Double? = null,
+    var timeStamp: Long = System.currentTimeMillis()
 )
+
+fun FirebaseComment.toCommentDb(): CommentDbModel {
+    return CommentDbModel(
+        commentId = commentId!!,
+        laborerId = laborerId!!,
+        authorId = authorId,
+        authorFName = author,
+        authorUrl = authorUrl,
+        comment = comment,
+        starNum = starNum,
+        timeStamp = timeStamp
+    )
+}
 
 @IgnoreExtraProperties
 data class Photo(
     var photoId: String? = null,
     var photoUrl: String? = null,
     var userId: String? = null,
-    @ServerTimestamp var uploadTime: Date? = null
+    var uploadTime: Long = System.currentTimeMillis()
 )
 
-@IgnoreExtraProperties
-data class EditImageData(
-    var firstName: String? = null,
-    var imageUrl: String? = null,
-    var lastName: String? = null,
-    var locality: String? = null,
-    var wageRate: String? = null,
-    var skill: String? = null,
-    var serviceOffered: String? = null,
-    var phone: String? = null,
-    var serviceOffered2: String? = null,
-    var experience: String? = null
-)
+fun FirebaseUser.toLoggedInUser(): LabourerDbModel {
+    return LabourerDbModel(
+        id = skillId!!,
+        first_name = firstName,
+        last_name = lastName,
+        image_url = imageUrl,
+        mobile = mobile,
+        locality = locality,
+        skills = skill,
+        serviceOffered = serviceOffered
+    )
+}

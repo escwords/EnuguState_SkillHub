@@ -2,28 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/startFragment"
         android:title="@string/home"
         android:icon="@drawable/ic_round_home"
         app:showAsAction="always" />
     <item
-        android:id="@+id/nearByFragment"
-        android:title="NearBy"
-        android:icon="@drawable/ic_nearby"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/preferenceFragment"
-        android:title="Preference"
-        android:icon="@drawable/ic_preference"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/authFragment"
+        android:id="@+id/loginFragment"
         android:title="@string/account_menu"
         android:icon="@drawable/ic_round_person"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/aboutFragment"
         android:icon="@drawable/ic_round_info"
         android:title="@string/about_menu"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>

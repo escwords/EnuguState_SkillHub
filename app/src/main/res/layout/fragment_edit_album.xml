@@ -32,12 +32,12 @@
             <ImageView
                 android:id="@+id/backBtn"
                 android:layout_width="40dp"
-                android:layout_height="30dp"
+                android:layout_height="25dp"
                 android:layout_marginStart="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView10"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView10"
-                app:srcCompat="@drawable/ic_round_cancel"
+                app:srcCompat="@drawable/arrow_back"
                 app:tint="@color/colorWhite"
                 tools:ignore="ContentDescription" />
 
@@ -48,9 +48,8 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginBottom="5dp"
                 android:text="Album"
-                android:textAppearance="@style/TextAppearance.title"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:textColor="@color/primaryTextColor"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/addImage"
                 app:layout_constraintStart_toStartOf="parent"
@@ -69,20 +68,39 @@
                 app:srcCompat="@drawable/add_black_24dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView8"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            app:cardElevation="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+            app:layout_constraintStart_toStartOf="@+id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="99dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Upload your work pictures." />
+        </com.google.android.material.card.MaterialCardView>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/imageList"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="400dp"
             android:layout_marginBottom="16dp"
             android:clipToPadding="false"
             android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:spanCount="2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView8"
             app:layout_constraintVertical_bias="0.0"
             tools:listitem="@layout/item_edit_photo" />
 
@@ -94,7 +112,7 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView8" />
 
         <ImageView
             android:id="@+id/noResult"

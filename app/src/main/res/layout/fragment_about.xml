@@ -12,8 +12,9 @@
             style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="@color/blue_700"
             app:title="About"
-            app:titleTextColor="@color/blue_900"
+            app:titleTextColor="@color/colorWhite"
             android:elevation="2dp"
             app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +45,7 @@
                     tools:ignore="ContentDescription" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/materialTextView3"
+                    android:id="@+id/bTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -52,13 +53,13 @@
                     android:layout_marginEnd="24dp"
                     android:lineSpacingExtra="4dp"
                     android:padding="5dp"
-                    android:text="A Project Submitted to the Department of Computer Science In Partial fullfilment of the requirement for the award of Bsc.(B.A Hons) Degree in Computer Science"
                     android:textAppearance="@style/TextAppearance.profileHeaderText"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView9"
+                    tools:text="this Project is a partial fulfilment of the course" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/textView9"
@@ -79,12 +80,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="50dp"
-                    android:text="Credit: \n\nDesigner: Nnamani Emmanuel \n\nSuperVisor: Dr. Honor Nwagwu"
                     android:textAppearance="@style/TextAppearance.profileMediumText"
                     android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@+id/materialTextView3"
-                    app:layout_constraintStart_toStartOf="@+id/materialTextView3"
-                    app:layout_constraintTop_toBottomOf="@+id/materialTextView3" />
+                    app:layout_constraintEnd_toEndOf="@+id/bTitle"
+                    app:layout_constraintStart_toStartOf="@+id/bTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/bTitle"
+                    tools:text="Credit: \n\nDesigner: Nnamani Emmanuel \n\nSuperVisor: Dr. Honor Nwagwu" />
 
                 <ImageView
                     android:layout_width="wrap_content"

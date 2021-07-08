@@ -41,6 +41,7 @@
     <string name="select_from_photos">Select from Photos</string>
     <string name="take_photos">Take Photo</string>
     <string name="profile_photo">Profile Photo</string>
+    <string name="client_name"></string>
 
 
     //Permission String
@@ -87,9 +88,9 @@
     <string name="clients">clients</string>
     <string name="address_list">Select Address</string>
     <string name="onBoardingOne_body">Get the skills within your vicinity with no stress, and also search skill within a locality with Skill Hub</string>
-    <string name="onBoardingOne_title">Welcome to SkillHub</string>
+    <string name="onBoardingOne_title">Welcome to Skills Hub</string>
     <string name="onBoardingTwo_title">Evaluate Skill labour</string>
-    <string name="onBoardingTwo_body">Skill Hub let you evaluate self skill at your convenient, it provides you with skilled service at a standard charge rate</string>
+    <string name="onBoardingTwo_body">Skill Hub let you evaluate self skilled workers at your convenient, it provides you with skilled service at a standard charge rate</string>
 
 
 </resources>

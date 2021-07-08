@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/clientToolBar"
+        style="@style/Widget.App.myToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="Client Dashboard"
+        android:background="@color/blue_700"
+        app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:titleTextColor="@color/colorWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/profile_topnav" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/innerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/tin_rectangle_outline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clientToolBar">
+
+        <ImageView
+            android:id="@+id/clientImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/ic_icon_person"
+            android:contentDescription="@string/profile_picture"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/clientName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textAppearance="@style/TextAppearance.title"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/innerView"
+        app:layout_constraintStart_toEndOf="@+id/innerView"
+        app:layout_constraintTop_toTopOf="@+id/innerView"
+        tools:text="Nnamani \nEmmanuel" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/editBtn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:text="Edit Profile"
+        android:textAllCaps="false"
+        android:textColor="@color/primaryDarkColor"
+        app:cornerRadius="13dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/notify"
+        app:layout_constraintTop_toBottomOf="@+id/innerView"
+        app:strokeColor="@color/primaryDarkColor"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/notify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Complaints"
+        android:textAllCaps="false"
+        app:iconSize="30dp"
+        android:textColor="@color/colorWhite"
+        app:icon="@drawable/ic_message_icon"
+        app:iconTint="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editBtn"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/settingBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hire list"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@+id/notify"
+        app:layout_constraintTop_toBottomOf="@+id/notify" />
+
+    <View
+        android:id="@+id/view7"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:background="@color/yellow_700"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingBtn" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/contractRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view7"
+        tools:listitem="@layout/item_contract_layout" />
+
+    <ProgressBar
+        android:id="@+id/clientProgress"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/view7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editBtn" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

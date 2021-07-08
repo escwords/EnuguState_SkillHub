@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1",
+    "name": "Carpenter",
+    "index": "0"
+  },
+  {
+    "id": "2",
+    "name": "Driver",
+    "index": "1"
+  },
+  {
+    "id": "3",
+    "name": "Electrician",
+    "index": "2"
+  },
+  {
+    "id": "4",
+    "name": "Mason",
+    "index": "3"
+  },
+  {
+    "id": "5",
+    "name": "Welder",
+    "index": "4"
+  },
+  {
+    "id": "6",
+    "name": "Roofing",
+    "index": "5"
+  },
+  {
+    "id": "7",
+    "name": "Plumber",
+    "index": "6"
+  },
+  {
+    "id": "8",
+    "name": "Painter",
+    "index": "7"
+  },
+  {
+    "id": "9",
+    "name": "Laborer",
+    "index": "8"
+  },
+  {
+    "id": "10",
+    "name": "Ac Repair",
+    "index": "9"
+  },
+  {
+    "id": "11",
+    "name": "Mechanic",
+    "index": "10"
+  },
+  {
+    "id": "12",
+    "name": "Sand Service",
+    "index": "11"
+  }
+]

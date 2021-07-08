@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".cms.providers.EvaluateFragment">
+
+    <ImageView
+        android:id="@+id/backIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="20dp"
+        android:elevation="10dp"
+        android:background="@drawable/circle_transparent_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back"
+        tools:ignore="ContentDescription" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/userImage"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/default_profile_icon"
+                tools:ignore="ContentDescription" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:elevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userImage"
+                app:strokeColor="@color/transparent_black"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Status:"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@color/green_900"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                        app:layout_constraintStart_toEndOf="@+id/textView8"
+                        app:layout_constraintTop_toTopOf="@+id/textView8"
+                        tools:text="New" />
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="60dp"
+                        android:text="Rem:"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="36 Days"
+                        android:textColor="@color/yellow_700"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView6"
+                        app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+
+                    <TextView
+                        android:id="@+id/firstNme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="40dp"
+                        android:textAppearance="@style/TextAppearance.title"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Nnamani" />
+
+                    <TextView
+                        android:id="@+id/lastNme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textAppearance="@style/TextAppearance.title"
+                        app:layout_constraintStart_toEndOf="@+id/firstNme"
+                        app:layout_constraintTop_toTopOf="@+id/firstNme"
+                        tools:text="Emmanuel" />
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="5dp"
+                        android:background="@drawable/blue_circle"
+                        app:layout_constraintBottom_toBottomOf="@+id/skillLab"
+                        app:layout_constraintEnd_toStartOf="@+id/skillLab"
+                        app:layout_constraintStart_toStartOf="@+id/firstNme"
+                        app:layout_constraintTop_toTopOf="@id/skillLab" />
+
+                    <TextView
+                        android:id="@+id/skillLab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/open_san_bold"
+                        android:textAppearance="@style/TextAppearance.title"
+                        android:textColor="@color/blue_900"
+                        app:layout_constraintStart_toStartOf="@+id/firstNme"
+                        app:layout_constraintTop_toBottomOf="@+id/firstNme"
+                        tools:text="Plumber" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/msgBtn"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:text="Edit"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/green_900"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lastNme"
+                        app:strokeColor="@color/transparentBlack"
+                        app:strokeWidth="1dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/others"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Personal details"
+                android:textColor="@color/yellow_700"
+                app:layout_constraintStart_toStartOf="@+id/materialCardView4"
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView4" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:elevation="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/materialCardView4"
+                app:layout_constraintStart_toStartOf="@+id/materialCardView4"
+                app:layout_constraintTop_toBottomOf="@id/others"
+                app:strokeColor="@color/transparent_black"
+                app:strokeWidth="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView41"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Mobile Number"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/phoneNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.title"
+                        app:layout_constraintStart_toStartOf="@+id/textView41"
+                        app:layout_constraintTop_toBottomOf="@+id/textView41"
+                        tools:text="0908943598" />
+
+                    <TextView
+                        android:id="@+id/locality"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Locality"
+                        app:layout_constraintStart_toStartOf="@+id/phoneNum"
+                        app:layout_constraintTop_toBottomOf="@+id/phoneNum" />
+
+                    <TextView
+                        android:id="@+id/localText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:textAppearance="@style/TextAppearance.title"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/locality"
+                        app:layout_constraintTop_toBottomOf="@+id/locality"
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:text="Nsukka" />
+
+                    <TextView
+                        android:id="@+id/registerView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Registered"
+                        android:layout_marginEnd="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/phoneNum" />
+
+                    <TextView
+                        android:id="@+id/registerDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:textAppearance="@style/TextAppearance.title"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/registerView"
+                        app:layout_constraintTop_toBottomOf="@+id/locality"
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:text="2-03-2021" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/bankDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Bank details"
+                android:textColor="@color/yellow_700"
+                app:layout_constraintStart_toStartOf="@+id/materialCardView13"
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView13" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bankCard"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/materialCardView4"
+                app:layout_constraintStart_toStartOf="@+id/materialCardView4"
+                app:layout_constraintTop_toBottomOf="@+id/bankDetail"
+                app:strokeColor="@color/transparent_black"
+                app:strokeWidth="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/bankName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Account Name"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/bankNameText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.title"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@+id/bankName"
+                        app:layout_constraintTop_toBottomOf="@+id/bankName"
+                        tools:text="First Bank of Nigeria" />
+
+                    <TextView
+                        android:id="@+id/acctNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="Account Number"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/bankName" />
+
+                    <TextView
+                        android:id="@+id/acctText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.title"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="@+id/acctNo"
+                        app:layout_constraintStart_toStartOf="@+id/acctNo"
+                        app:layout_constraintTop_toBottomOf="@+id/acctNo"
+                        tools:text="3919834748" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

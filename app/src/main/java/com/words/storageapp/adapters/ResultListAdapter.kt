@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.words.storageapp.R
 import com.words.storageapp.database.model.MiniSkillModel
 import com.words.storageapp.databinding.ResultListCardBinding
 
@@ -31,6 +34,15 @@ class ResultListAdapter(private val listener: ClickListener) :
         fun bind(data: MiniSkillModel, listener: ClickListener) {
             binding.skills = data
             binding.clickListener = listener
+
+            Glide.with(binding.iconImage.context)
+                .load(data.imageUrl)
+                .apply(
+                    RequestOptions().placeholder(R.drawable.animated_loading)
+                        .error(R.drawable.ic_icon_person)
+                )
+                .into(binding.iconImage)
+
             binding.executePendingBindings()
         }
 

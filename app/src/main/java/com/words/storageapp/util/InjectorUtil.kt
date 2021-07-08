@@ -6,7 +6,6 @@ import com.words.storageapp.ui.search.SearchViewModel.Companion.SearchViewModelF
 
 object InjectorUtil {
 
-
     fun provideSearchViewModelFactory(repository: SearchRepository): SearchViewModelFactory {
         return SearchViewModelFactory(repository)
     }

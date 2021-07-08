@@ -5,18 +5,46 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/secondaryDarkColor">
+
+        <TextView
+            android:id="@+id/imageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Full Image"
+            android:textAppearance="@style/TextAppearance.title"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="@+id/cancelBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.15"
+            app:layout_constraintStart_toEndOf="@+id/cancelBtn"
+            app:layout_constraintTop_toTopOf="@+id/cancelBtn" />
 
         <ImageView
             android:id="@+id/profileImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_status_avatar_default"
-            android:scaleType="fitCenter"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="150dp"
+            android:background="@drawable/ic_icon_person"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cancelBtn"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/tailor" />
+
+        <ImageView
+            android:id="@+id/cancelBtn"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_margin="16dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/arrow_back"
+            app:tint="@color/colorWhite"
             tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

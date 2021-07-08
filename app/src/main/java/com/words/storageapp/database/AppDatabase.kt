@@ -9,18 +9,19 @@ import com.words.storageapp.database.model.*
 import com.words.storageapp.work.SeedDatabaseWorker
 
 @Database(
-    entities = [LabourerDbModel::class, AllSkillsDbModel::class, AllSkillsFts::class,
-        ClientDbModel::class, NearByDbModel::class, NearByDbFts::class, AddressModel::class],
+    entities = [AllSkillsDbModel::class, AllSkillsFts::class,
+        ClientDbModel::class, CommentDbModel::class, AddressModel::class,
+        RecentSkillModel::class],
     version = 2,
     exportSchema = false
 )
 @TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun labourerDbDao(): LabourerDbDao
     abstract fun allSkillsDbDao(): AllSkillsDbDao
     abstract fun clientDbDao(): ClientDbDao
-    abstract fun nearbyDbDao(): NearByDbDao
+    abstract fun commentDao(): CommentDao
     abstract fun addressDao(): AddressDao
+    abstract fun recentDao(): RecentDao
 
     companion object {
 
@@ -34,15 +35,15 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context): AppDatabase {
-            return Room.databaseBuilder(context, AppDatabase::class.java, "wokr_database")
-                .addCallback(object : RoomDatabase.Callback() {
-                    override fun onCreate(db: SupportSQLiteDatabase) {
-                        super.onCreate(db)
-                        //pre-populating the database with dummy data
-                        val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
-                        WorkManager.getInstance(context).enqueue(request)
-                    }
-                })
+            return Room.databaseBuilder(context, AppDatabase::class.java, "skills_db")
+//                .addCallback(object : RoomDatabase.Callback() {
+//                    override fun onCreate(db: SupportSQLiteDatabase) {
+//                        super.onCreate(db)
+//                        //pre-populating the database with dummy data
+//                        val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
+//                        WorkManager.getInstance(context).enqueue(request)
+//                    }
+//                })
                 .fallbackToDestructiveMigration()
                 .build()
         }

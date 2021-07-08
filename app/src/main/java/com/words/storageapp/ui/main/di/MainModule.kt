@@ -19,12 +19,6 @@ abstract class MainModule {
     @Binds
     abstract fun context(activity: MainActivity): Context
 
-    @Binds
-    abstract fun provideActivity(activity: MainActivity): Activity
-
-    @Binds
-    abstract fun provideSharedPreference(storage: SharedPreference): Storage
-
     @Module
     companion object {
 

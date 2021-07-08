@@ -3,74 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/homeFragment">
-
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.words.storageapp.ui.main.HomeFragment"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_homeFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_onBoardingFragment"
-            app:destination="@id/onboardingFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+    app:startDestination="@id/startFragment">
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.words.storageapp.ui.account.LoginFragment"
+        android:name="com.words.storageapp.laborer.LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/registrationFragment"
-        android:name="com.words.storageapp.ui.account.RegistrationFragment"
-        tools:layout="@layout/fragment_registration">
+            android:id="@+id/action_loginFragment_to_contentFragment"
+            app:destination="@id/contentFragment" />
         <action
-            android:id="@+id/action_registrationFragment_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_loginFragment_to_clientRegistration"
+            app:destination="@id/clientRegistration" />
+        <action
+            android:id="@+id/action_loginFragment_to_clientProfileFragment"
+            app:destination="@id/clientProfileFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/profileImageFragment"
-        android:name="com.words.storageapp.ui.account.viewProfile.ProfileEditFragment"
-        tools:layout="@layout/fragment_status_edit">
-        <action
-            android:id="@+id/action_profileImageFragment_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+        android:name="com.words.storageapp.cms.providers.ProfileEditFragment"
+        tools:layout="@layout/fragment_status_edit" />
     <fragment
         android:id="@+id/editAlbumFragment"
-        android:name="com.words.storageapp.ui.account.viewProfile.EditAlbumFragment"
+        android:name="com.words.storageapp.laborer.viewProfile.EditAlbumFragment"
         tools:layout="@layout/fragment_edit_album" />
     <fragment
-        android:id="@+id/authFragment"
-        android:name="com.words.storageapp.ui.account.AuthFragment"
-        android:label="AuthFragment"
-        tools:layout="@layout/fragment_auth">
-        <action
-            android:id="@+id/action_authFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.words.storageapp.SettingsFragment"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
-    <fragment
         android:id="@+id/configureFragment"
-        android:name="com.words.storageapp.ConfigureFragment"
+        android:name="com.words.storageapp.client.NotificationFragment"
         android:label="fragment_configure"
         tools:layout="@layout/fragment_configure" />
     <fragment
@@ -78,18 +38,14 @@
         android:name="com.words.storageapp.preference.LocationFragment"
         android:label="locationFragment"
         tools:layout="@layout/fragment_location">
+
         <action
-            android:id="@+id/action_locationFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment"
+            android:id="@+id/action_locationFragment_to_startFragment"
+            app:destination="@id/startFragment"
+            app:popUpTo="@id/startFragment"
             app:popUpToInclusive="true" />
     </fragment>
 
-    <fragment
-        android:id="@+id/newsFeedFragment"
-        android:name="com.words.storageapp.NewsFeedFragment"
-        android:label="fragment_news_feed"
-        tools:layout="@layout/fragment_news_feed" />
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.words.storageapp.ui.search.SearchFragment"
@@ -99,19 +55,33 @@
             android:id="@+id/action_searchFragment_to_skilledFragment2"
             app:destination="@id/skilledFragment2" />
     </fragment>
+
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.words.storageapp.ui.detail.AboutFragment"
         android:label="AboutFragment"
         tools:layout="@layout/fragment_about" />
+
     <fragment
         android:id="@+id/skilledFragment2"
         android:name="com.words.storageapp.ui.detail.SkilledFragment"
         android:label="SkilledFragment"
-        tools:layout="@layout/fragment_detail2"></fragment>
+        tools:layout="@layout/fragment_detail2">
+        <action
+            android:id="@+id/action_skilledFragment2_to_paymentFragment"
+            app:destination="@id/paymentFragment"
+            app:popUpTo="@id/skilledFragment2" />
+        <action
+            android:id="@+id/action_skilledFragment2_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_skilledFragment2_to_clientProfileFragment"
+            app:destination="@id/clientProfileFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/onboardingFragment"
-        android:name="com.words.storageapp.OnBoardingFragment"
+        android:name="com.words.storageapp.onboarding.OnBoardingFragment"
         android:label="fragment_onboarding"
         tools:layout="@layout/fragment_onboarding">
         <action
@@ -120,24 +90,10 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.words.storageapp.ui.account.viewProfile.ProfileFragment"
+        android:name="com.words.storageapp.laborer.viewProfile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_labourer_profile">
-        <action
-            android:id="@+id/action_profileFragment_to_authFragment"
-            app:destination="@id/authFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/nearByFragment"
-        android:name="com.words.storageapp.ui.main.NearByFragment"
-        android:label="NearByFragment"
-        tools:layout="@layout/fragment_near_by">
-        <action
-            android:id="@+id/action_nearByFragment_to_skilledFragment2"
-            app:destination="@id/skilledFragment2" />
-    </fragment>
+        tools:layout="@layout/fragment_labourer_profile" />
+
     <fragment
         android:id="@+id/preferenceFragment"
         android:name="com.words.storageapp.preference.PreferenceFragment"
@@ -145,12 +101,12 @@
         tools:layout="@layout/fragment_preference" />
     <fragment
         android:id="@+id/splashOneFragment"
-        android:name="com.words.storageapp.SplashOneFragment"
+        android:name="com.words.storageapp.onboarding.SplashOneFragment"
         android:label="fragment_splash_one"
         tools:layout="@layout/fragment_splash_one" />
     <fragment
         android:id="@+id/splashTwoFragment"
-        android:name="com.words.storageapp.SplashTwoFragment"
+        android:name="com.words.storageapp.home.SplashTwoFragment"
         android:label="fragment_splash_two"
         tools:layout="@layout/fragment_splash_two" />
     <dialog
@@ -159,9 +115,153 @@
         android:label="AddressDialogFragment"
         tools:layout="@layout/address_list_layout">
         <action
-            android:id="@+id/action_addressDialogFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment"
+            android:id="@+id/action_addressDialogFragment_to_startFragment"
+            app:destination="@id/startFragment"
+            app:popUpTo="@id/startFragment"
             app:popUpToInclusive="true" />
     </dialog>
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.words.storageapp.home.StartFragment"
+        tools:layout="@layout/fragment_start">
+        <action
+            android:id="@+id/action_startFragment_to_skillFragment"
+            app:destination="@id/skillFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_onboardingFragment"
+            app:destination="@id/onboardingFragment"
+            app:popUpTo="@id/startFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_startFragment_to_preferenceFragment"
+            app:destination="@id/preferenceFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/splashActivity"
+        android:name="com.words.storageapp.home.SplashActivity"
+        android:label="activity_splash"
+        tools:layout="@layout/activity_splash" />
+    <fragment
+        android:id="@+id/skillFragment"
+        android:name="com.words.storageapp.home.SkillFragment"
+        android:label="fragment_skill"
+        tools:layout="@layout/fragment_skill">
+        <action
+            android:id="@+id/action_skillFragment_to_skilledFragment2"
+            app:destination="@id/skilledFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.words.storageapp.cms.providers.AdminFragment"
+        android:label="fragment_admin"
+        tools:layout="@layout/fragment_admin">
+        <action
+            android:id="@+id/action_adminFragment_to_admin_skill_fragment"
+            app:destination="@id/admin_skill_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/admin_skill_fragment"
+        android:name="com.words.storageapp.cms.providers.EvaluateFragment"
+        android:label="fragment_evaluate"
+        tools:layout="@layout/fragment_evaluate">
+        <action
+            android:id="@+id/action_admin_skill_fragment_to_profileImageFragment"
+            app:destination="@id/profileImageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/complaintFragment"
+        android:name="com.words.storageapp.home.ComplaintFragment"
+        android:label="fragment_complaint"
+        tools:layout="@layout/fragment_complaint" />
+    <fragment
+        android:id="@+id/requestFragment"
+        android:name="com.words.storageapp.home.RequestFragment"
+        android:label="RequestFragment"
+        tools:layout="@layout/fragment_request" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.words.storageapp.authentication.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_registerFragment_to_processFragment"
+            app:destination="@id/processFragment"
+            app:popUpTo="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/processFragment"
+        android:name="com.words.storageapp.authentication.ProcessFragment"
+        android:label="fragment_process"
+        tools:layout="@layout/fragment_process">
+        <action
+            android:id="@+id/action_processFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/contentFragment"
+        android:name="com.words.storageapp.cms.ContentFragment"
+        android:label="fragment_content"
+        tools:layout="@layout/fragment_content">
+        <action
+            android:id="@+id/action_contentFragment_to_resolveComplaint"
+            app:destination="@id/resolveComplaint" />
+        <action
+            android:id="@+id/action_contentFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
+        <action
+            android:id="@+id/action_contentFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resolveComplaint"
+        android:name="com.words.storageapp.cms.complaint.ResolveComplaint"
+        android:label="resolve_complaint"
+        tools:layout="@layout/resolve_complaint" />
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.words.storageapp.contract.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" />
+    <fragment
+        android:id="@+id/fullPhotoFragment"
+        android:name="com.words.storageapp.ui.detail.FullPhotoFragment"
+        android:label="FullPhotoFragment"
+        tools:layout="@layout/fragment_photo_detail" />
+    <fragment
+        android:id="@+id/clientRegistration"
+        android:name="com.words.storageapp.client.ClientRegistration"
+        android:label="fragment_client_registration"
+        tools:layout="@layout/fragment_client_registration">
+        <action
+            android:id="@+id/action_clientRegistration_to_clientProfileFragment"
+            app:destination="@id/clientProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientProfileFragment"
+        android:name="com.words.storageapp.client.ClientProfileFragment"
+        android:label="ClientProfileFragment"
+        tools:layout="@layout/layout_client_profile">
+        <action
+            android:id="@+id/action_clientProfileFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/startFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_clientProfileFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+        <action
+            android:id="@+id/action_clientProfileFragment_to_configureFragment"
+            app:destination="@id/configureFragment" />
+        <action
+            android:id="@+id/action_clientProfileFragment_to_clientEditFragment"
+            app:destination="@id/clientEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientEditFragment"
+        android:name="com.words.storageapp.client.ClientEditFragment"
+        android:label="ClientEditFragment"
+        tools:layout="@layout/fragment_client_edit" />
 </navigation>
