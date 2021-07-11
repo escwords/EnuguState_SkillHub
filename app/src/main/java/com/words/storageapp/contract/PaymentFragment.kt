@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.words.storageapp.R
 import com.words.storageapp.domain.FirebaseContract
@@ -16,8 +17,15 @@ import kotlinx.android.synthetic.main.fragment_payment.*
 
 class PaymentFragment : Fragment() {
 
-    private val contract: FirebaseContract by lazy {
-        arguments?.get("Pay") as FirebaseContract
+
+    private var payment: FirebaseContract? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            payment = arguments?.getParcelable<FirebaseContract>("pay_laborer")
+                    as FirebaseContract
+        }
     }
 
     override fun onCreateView(
@@ -27,7 +35,7 @@ class PaymentFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_payment, container, false)
         val acctName = view.findViewById<TextView>(R.id.acctName)
-        val acctNumber = view.findViewById<TextView>(R.id.accountNum)
+        val acctNumber = view.findViewById<TextView>(R.id.acctNumber)
         val cardNumber = view.findViewById<TextInputEditText>(R.id.cardNumberText)
         val cardExpiry = view.findViewById<TextInputEditText>(R.id.expiryCardText)
         val ccv = view.findViewById<TextInputEditText>(R.id.cvvText)
@@ -35,18 +43,34 @@ class PaymentFragment : Fragment() {
         val closeBtn = view.findViewById<ImageView>(R.id.clsIcon)
         val payBtn = view.findViewById<MaterialButton>(R.id.btnPay)
 
-        contract.accountName?.let { acctName.text = it }
-        contract.accountName?.let { acctNumber.text = it }
+        payment?.let {
+            acctName.text = it.accountName
+            acctNumber.text = it.accountNumber
+        }
+
+        paymentNotice()
 
         closeBtn.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        payBtn.setOnClickListener {
-
-        }
+//        payBtn.setOnClickListener {
+//           paymentNotice()
+//        }
 
         return view
     }
+
+    private fun paymentNotice() {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("Notice!!")
+            setMessage("Pair to Pair Payment is still under Construction \nPlease Bear with us")
+            setPositiveButton("Okay") { dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
+
 
 }

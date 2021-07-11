@@ -1,4 +1,4 @@
-package com.words.storageapp.client
+package com.words.storageapp.client.auth
 
 import android.os.Bundle
 import android.util.Patterns
@@ -40,7 +40,7 @@ class ClientRegistration : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         firebaseAuth = FirebaseAuth.getInstance()
-        clientDbPath = Firebase.database.reference.child("skills")
+        clientDbPath = Firebase.database.reference.child("clients")
     }
 
     override fun onCreateView(

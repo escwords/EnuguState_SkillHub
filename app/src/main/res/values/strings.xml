@@ -87,10 +87,10 @@
     //firebase database string
     <string name="clients">clients</string>
     <string name="address_list">Select Address</string>
-    <string name="onBoardingOne_body">Get the skills within your vicinity with no stress, and also search skill within a locality with Skill Hub</string>
+    <string name="onBoardingOne_body">Skill Hub is a platform that enables you to locate, evaluate and pay skilled laborers within your locality. MeanWhile you can search for a skilled laborer on Skill Hub.</string>
     <string name="onBoardingOne_title">Welcome to Skills Hub</string>
-    <string name="onBoardingTwo_title">Evaluate Skill labour</string>
-    <string name="onBoardingTwo_body">Skill Hub let you evaluate self skilled workers at your convenient, it provides you with skilled service at a standard charge rate</string>
+    <string name="onBoardingTwo_title">App possibility</string>
+    <string name="onBoardingTwo_body">The use of Skill Hub is restricted to Enugu State residence. </string>
 
 
 </resources>

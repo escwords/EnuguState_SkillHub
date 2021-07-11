@@ -160,6 +160,8 @@ class LoginFragment : Fragment() {
                                             requireContext(), "Admin Signed In",
                                             Toast.LENGTH_SHORT
                                         ).show()
+                                    } else {
+                                        showSnackBar { "Account is pending activation" }
                                     }
                                 }
                             }

@@ -5,21 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import com.words.storageapp.R
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.words.storageapp.domain.FirebaseUser
 
 class ClientEditFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    var client: FirebaseUser? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            client = it.getParcelable<FirebaseUser>("edit_client") as FirebaseUser
         }
     }
 
@@ -28,18 +29,29 @@ class ClientEditFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_client_edit, container, false)
+        val view = inflater.inflate(R.layout.fragment_client_edit, container, false)
+        val saveBtn = view.findViewById<MaterialButton>(R.id.updateBtn)
+        val profileImage = view.findViewById<ImageView>(R.id.profilePics_edit)
+        val firstName = view.findViewById<TextInputEditText>(R.id.firstNameText)
+        val lastName = view.findViewById<TextInputEditText>(R.id.lastNameText)
+        val backKey = view.findViewById<ImageView>(R.id.backKey)
+
+        Glide.with(profileImage.context)
+            .load(client?.imageUrl)
+            .into(profileImage)
+
+        firstName.hint = client?.firstName
+        lastName.hint = client?.lastName
+
+        saveBtn.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        backKey.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        return view
     }
 
-    companion object {
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ClientEditFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

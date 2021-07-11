@@ -58,7 +58,7 @@ open class MyApplication : Application() {
             PeriodicWorkRequestBuilder<BackgroundPrefetchSkill>(
                 1,
                 TimeUnit.DAYS
-            )
+            ).setConstraints(constraint)
                 .build()
 
         WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(

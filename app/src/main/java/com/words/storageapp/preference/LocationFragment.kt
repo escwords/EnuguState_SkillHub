@@ -1,6 +1,8 @@
 package com.words.storageapp.preference
 
 import android.Manifest
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -8,6 +10,7 @@ import android.content.Intent
 import android.content.IntentSender
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
@@ -18,6 +21,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
@@ -65,6 +70,7 @@ class LocationFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var firebaseDb: DatabaseReference
     private lateinit var skillDbPath: DatabaseReference
+    private var network: Boolean = true
 
     @Inject
     lateinit var localDb: AppDatabase
@@ -107,8 +113,10 @@ class LocationFragment : Fragment() {
         sharedPreferences = (activity as MainActivity).sharedPref
         networkConnection = (activity as MainActivity).connectivityChecker
         loadingView = binding.loadingLayout
-        setUpOnBackPressedCallback()
+        val searchImage = binding.searchingIcon
+        animateWarning(searchImage)
 
+        setUpOnBackPressedCallback()
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, callback)
         return binding.root
     }
@@ -144,22 +152,21 @@ class LocationFragment : Fragment() {
             setUpUI()
         }
     }
+
     private fun setUpUI() {
         networkConnection?.apply {
             lifecycle.addObserver(this)
             connectedStatus.observe(viewLifecycleOwner, Observer {
-                if (it) {
-                    createLocationRequest()
-                } else {
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        delay(2000)
-                        hideLoading()
-                        //timeOutError()
-                        noLocationDialog()
-                    }
-                    //noLocationDialog()
-                }
+                network = it
             })
+        }
+        if (network) {
+            //createLocationRequest()
+            navigateToStartScreen()
+        } else {
+            hideLoading()
+            //noLocationDialog()
+            navigateToStartScreen()
         }
     }
 
@@ -198,7 +205,6 @@ class LocationFragment : Fragment() {
                         requireActivity(),
                         REQUEST_CHECK_SETTINGS
                     )
-                    timeOutError()
                 } catch (sendEx: IntentSender.SendIntentException) {
                     Timber.i("Cannot resolve location Error")
                 }
@@ -213,6 +219,21 @@ class LocationFragment : Fragment() {
         }
     }
 
+    private fun animateWarning(icon: ImageView) {
+        val prevColor = Color.parseColor("#E6FBFFFF")
+        val newColor = Color.parseColor("#EC2020")
+        ValueAnimator.ofObject(ArgbEvaluator(), newColor, prevColor).apply {
+            repeatCount = 1000
+            duration = 1000
+            addUpdateListener { valueAnimator ->
+                val background = valueAnimator.animatedValue as Int
+                icon.setBackgroundColor(background)
+                icon.setColorFilter(Color.WHITE)
+            }
+            start()
+        }
+    }
+
     @SuppressLint("MissingPermission")
     private fun getAddress() {
         Timber.i("getAddress called")
@@ -221,11 +242,8 @@ class LocationFragment : Fragment() {
             OnSuccessListener { location ->
                 if (location == null) {
                     Timber.i("onSuccess::null")
-                    noLocationDialog()
                     return@OnSuccessListener
                 }
-                onBoarding()
-
                 lastLocation = location
                 lifecycleScope.launch(Dispatchers.IO) {
                     val addressModel = AddressModel(
@@ -235,9 +253,8 @@ class LocationFragment : Fragment() {
                     localDb.addressDao().insertAddress(addressModel)
                     storeLocation()
                 }
-
-                lifecycleScope.launch(Dispatchers.Main) {
-                    delay(3000)
+                lifecycleScope.launchWhenResumed {
+                    delay(10000)
                     hideLoading()
                     timeOutError()
                 }
@@ -269,9 +286,11 @@ class LocationFragment : Fragment() {
                     hideLoading()
                     addressAvailable(addresses[0])     //dialog to navigate to start screen
                     storeAddress()
+                    lifecycleScope.launch {
+                        delay(1000)
+                        navigateToStartScreen()
+                    }
                 }
-            } else {
-                //what if addresses is not available
             }
         }
     }
@@ -279,10 +298,12 @@ class LocationFragment : Fragment() {
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
         //check if location permission is accepted first
-        fusedLocationProviderClient.requestLocationUpdates(
-            locationRequest
-            , locationCallback, Looper.getMainLooper()
-        )
+        if (checkLocationPermissionApproved()) {
+            fusedLocationProviderClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback, Looper.getMainLooper()
+            )
+        }
     }
 
     private fun stopLocationUpdates() {
@@ -357,20 +378,28 @@ class LocationFragment : Fragment() {
         )
     }
 
+    private fun timeOutError() {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("Oops Time Out!!")
+            setMessage("Issue with your internet Connection. \nDo you want to Continue with offline Data?")
+
+            setPositiveButton("Continue") { dialog, _ ->
+                dialog.dismiss()
+                navigateToStartScreen()
+                //loadDataFromAsset()
+            }
+            setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            setCancelable(false)
+            show()
+        }
+    }
+
     private fun addressNoAvailable() {
         MaterialAlertDialogBuilder(requireContext()).apply {
             setTitle("Oops Cannot Find your address!!")
             setMessage("But we found your Location. \nDo you want to continue without address?")
-            setPositiveButton("Yes") { dialog, _ ->
-                dialog.dismiss()
-                loadDataFromAsset()
-            }
-            setNegativeButton("Retry") { dialog, _ ->
-                dialog.dismiss()
-                showLoading()
-                getAddress()
-            }
-            show()
         }
     }
 
@@ -378,41 +407,33 @@ class LocationFragment : Fragment() {
         MaterialAlertDialogBuilder(requireContext()).apply {
             setTitle("We Found your address!!")
             setMessage(address)
-            setPositiveButton("Continue") { dialog, _ ->
-                dialog.dismiss()
-                //prefetchFromFirebase()
-                navigateToStartScreen()
-            }
-            setCancelable(false)
             show()
         }
     }
 
     private fun noLocationDialog() {
-        MaterialAlertDialogBuilder(requireContext()).apply {
-            setTitle("OOps!! cannot find your Location.")
-            setMessage(
-                "Check your internet Connection " +
-                        "\nDo you want to Continue with Default Location?"
-            )
-
-            setPositiveButton("Continue") { dialog, _ ->
-                dialog.cancel()
-                loadDataFromAsset()
+        MaterialAlertDialogBuilder(requireContext())
+            .apply {
+                setTitle("OOps!! cannot find your Location.")
+                setMessage(
+                    "Check your internet Connection " +
+                            "\nDo you want to Continue with Default Location?"
+                )
+                setPositiveButton("Continue") { dialog, _ ->
+                    dialog.dismiss()
+                    navigateToStartScreen()
+                }
+                setNegativeButton("Retry") { dialog, _ ->
+                    dialog.dismiss()
+                    getAddress()
+                }
+                show()
             }
-
-            setNegativeButton("Retry") { dialog, _ ->
-                dialog.cancel()
-                createLocationRequest()
-            }
-            setCancelable(true)
-            show()
-        }
     }
 
     private fun firebaseError() {
         MaterialAlertDialogBuilder(requireContext()).apply {
-            setTitle("OOps cannot fetch Data!!")
+            setTitle("Oops cannot fetch Data!!")
             setMessage("Check your internet Connection \nDo you want to Continue with offline Data?")
             setPositiveButton("Continue") { dialog, _ ->
                 dialog.dismiss()
@@ -420,29 +441,13 @@ class LocationFragment : Fragment() {
             }
             setPositiveButton("Retry") { dialog, _ ->
                 dialog.dismiss()
-                prefetchFromFirebase()
+                //prefetchFromFirebase()
+                getAddress()
             }
-            setCancelable(false)
             show()
         }
     }
 
-    private fun timeOutError() {
-        MaterialAlertDialogBuilder(requireContext()).apply {
-            setTitle("OOps Time Out!!")
-            setMessage("Check your internet Connection. \nDo you want to Continue with offline Data?")
-            setPositiveButton("Continue") { dialog, _ ->
-                dialog.dismiss()
-                loadDataFromAsset()
-            }
-            setPositiveButton("Retry") { dialog, _ ->
-                dialog.dismiss()
-                prefetchFromFirebase()
-            }
-            setCancelable(false)
-            show()
-        }
-    }
 
     //shared pref to cache location request
     private fun storeLocation() {
@@ -460,8 +465,9 @@ class LocationFragment : Fragment() {
     }
 
     private fun navigateToStartScreen() {
-        val action = R.id.action_locationFragment_to_startFragment
-        findNavController().navigate(action)
+        onBoarding()
+        //val action = R.id.action_locationFragment_to_startFragment
+        findNavController().navigate(R.id.startFragment)
     }
 
     private fun showLoading() {

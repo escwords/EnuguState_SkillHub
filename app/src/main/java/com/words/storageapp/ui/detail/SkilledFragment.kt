@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -19,6 +20,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -109,6 +112,10 @@ class SkilledFragment : Fragment() {
         detailViewModel.skillData.observe(viewLifecycleOwner, Observer { skill ->
 
             val comments = skill.comments.toDomainComment()
+            if (comments.isEmpty()) {
+                showSnackBar { "No Comments" }
+            }
+
             val commentAdapter = CommentPager(this, comments)
             commentsViewPager.adapter = commentAdapter
 
@@ -145,18 +152,17 @@ class SkilledFragment : Fragment() {
 
         callBtn.setOnClickListener {
             mobileNo?.let {
-                detailViewModel.insertInRecentTable(recentSkillModel)
-                dialPhoneNumber(it)
+                callDialog(it)
+                //detailViewModel.insertInRecentTable(recentSkillModel)
             }
         }
 
         hireBtn.setOnClickListener {
             val user = firebaseAuth.currentUser?.uid
             if (user != null) {
-                hireLaborer(user)
+                hireDialog(user)
             } else {
-                val action = R.id.action_skilledFragment2_to_loginFragment
-                findNavController().navigate(action)
+                notRegistered()
             }
         }
 
@@ -189,18 +195,20 @@ class SkilledFragment : Fragment() {
 
         detailViewModel.detailData.observe(viewLifecycleOwner,
             Observer { detailData ->
+
+                val documentRef = contractDbPath.push()
+
                 val contract = FirebaseContract(
                     accountName = detailData.accountName,
                     accountNumber = detailData.accountNumber,
                     clientId = uid,
+                    contractId = documentRef.key,
                     laborerId = skillId,
                     laborerUrl = detailData.imageUrl,
                     skill = detailData.skill,
                     laborerFName = detailData.firstName,
                     laborerLName = detailData.lastName
                 )
-
-                val documentRef = contractDbPath.push()
 
                 documentRef.setValue(contract)
                     .addOnSuccessListener {
@@ -230,16 +238,67 @@ class SkilledFragment : Fragment() {
         }
     }
 
-//    private fun composeSmsMessage(address: String) {
-//        val intent = Intent(Intent.ACTION_VIEW).apply {
-//            data = Uri.parse("smsto:$address")  // This ensures only SMS apps respond
-//            putExtra("sms_body", getString(R.string.messageHeader))
-//            //putExtra("address", address)
-//        }
-//        if (intent.resolveActivity(requireActivity().packageManager) != null) {
-//            startActivity(intent)
-//        }
-//    }
+    private fun moveToLogin() {
+        val action = R.id.action_skilledFragment2_to_loginFragment
+        findNavController().navigate(action)
+    }
+
+
+    private fun showSnackBar(call: () -> String) {
+        Snackbar.make(
+            requireActivity().findViewById<ConstraintLayout>(R.id.detalScreen)
+            , call.invoke(), Snackbar.LENGTH_LONG
+        ).show()
+    }
+
+    private fun hireDialog(user: String) {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("You're About to Hire Laborer.")
+            setPositiveButton("Yes") { dialog, _ ->
+                dialog.dismiss()
+                hireLaborer(user)
+            }
+
+            setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
+
+    private fun notRegistered() {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("Login to HireLaborer.")
+            setMessage("You can only hire laborer when you have logged in.")
+            setPositiveButton("Login") { dialog, _ ->
+                dialog.dismiss()
+                moveToLogin()
+            }
+
+            setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
+
+
+    private fun callDialog(number: String) {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("Call Skilled Laborer.")
+            setMessage("Your are about to leave the app to make a call.")
+
+            setPositiveButton("Yes") { dialog, _ ->
+                dialog.dismiss()
+                dialPhoneNumber(number)
+            }
+
+            setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
 
     class CommentPager(
         val fragment: Fragment,

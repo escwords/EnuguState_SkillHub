@@ -30,22 +30,23 @@ class ContractListAdapter(val clickListener: ClickListener) :
         holder.bind(contract, clickListener)
     }
 
-
     class ContractViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
         private val imageIcon = itemView.findViewById<ImageView>(R.id.imageItem)
-        private val fullName = itemView.findViewById<TextView>(R.id.fullName)
+        private val fName = itemView.findViewById<TextView>(R.id.fullName)
+        private val lastName = itemView.findViewById<TextView>(R.id.lNam)
         private val skillView = itemView.findViewById<TextView>(R.id.skillText)
         private val payBtn = itemView.findViewById<MaterialButton>(R.id.payBtn)
         private val rateBtn = itemView.findViewById<MaterialButton>(R.id.btnRate)
+        private val removeBtn = itemView.findViewById<ImageView>(R.id.remove)
 
         fun bind(
             data: FirebaseContract,
             listener: ClickListener
         ) {
-            fullName.text =
-                "${data.laborerLName} ${data.laborerFName}" ///use get string for this fullName
+            fName.text = "${data.laborerFName}" ///use get string for this fullName
+            lastName.text = "${data.laborerLName}"
             skillView.text = data.skill
 
             payBtn.setOnClickListener {
@@ -56,19 +57,24 @@ class ContractListAdapter(val clickListener: ClickListener) :
                 listener.rateClick(data)
             }
 
-//            Glide.with(imageIcon.context)
-//                .load(data.laborerUrl)
-//                .into(imageIcon)
+            removeBtn.setOnClickListener {
+                listener.removeClick(data)
+            }
+
+            Glide.with(imageIcon.context)
+                .load(data.laborerUrl)
+                .into(imageIcon)
         }
     }
 
     class ClickListener(
         val listener: (skills: FirebaseContract) -> Unit,
-        val rateListener: (skills: FirebaseContract) -> Unit
+        val rateListener: (skills: FirebaseContract) -> Unit,
+        val removeListener: (skills: FirebaseContract) -> Unit
     ) {
-
         fun payClick(skill: FirebaseContract) = listener(skill)
         fun rateClick(skill: FirebaseContract) = rateListener(skill)
+        fun removeClick(skill: FirebaseContract) = removeListener(skill)
     }
 
     companion object {

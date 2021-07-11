@@ -27,7 +27,7 @@ class AboutFragment : Fragment() {
                 
                 Designer: Nnamani Emmanuel 
                 
-                SuperVisor: Dr. Honor Nwagwu
+                SuperVisor: Dr. Honour Nwagwu
             """.trimIndent()
         )
         title.text = content[0]

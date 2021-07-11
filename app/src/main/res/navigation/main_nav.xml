@@ -232,7 +232,7 @@
         tools:layout="@layout/fragment_photo_detail" />
     <fragment
         android:id="@+id/clientRegistration"
-        android:name="com.words.storageapp.client.ClientRegistration"
+        android:name="com.words.storageapp.client.auth.ClientRegistration"
         android:label="fragment_client_registration"
         tools:layout="@layout/fragment_client_registration">
         <action

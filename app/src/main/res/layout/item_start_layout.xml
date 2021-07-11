@@ -11,11 +11,10 @@
     android:layout_marginBottom="26dp">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="110dp"
+        android:layout_width="115dp"
         android:layout_height="130dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="5dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp"
         app:cardBackgroundColor="@color/blue_700"
@@ -28,7 +27,7 @@
 
             <ImageView
                 android:id="@+id/recentIcon"
-                android:layout_width="110dp"
+                android:layout_width="115dp"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +43,7 @@
                 android:layout_margin="5dp"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textAppearance="@style/MainText"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/recentIcon"
                 app:layout_constraintHorizontal_bias="0.5"

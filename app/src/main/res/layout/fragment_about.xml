@@ -85,7 +85,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/bTitle"
                     app:layout_constraintStart_toStartOf="@+id/bTitle"
                     app:layout_constraintTop_toBottomOf="@+id/bTitle"
-                    tools:text="Credit: \n\nDesigner: Nnamani Emmanuel \n\nSuperVisor: Dr. Honor Nwagwu" />
+                    tools:text="Credit: \n\nDesigner: Nnamani Emmanuel \n\nSuperVisor: Dr. Honour Nwagwu" />
 
                 <ImageView
                     android:layout_width="wrap_content"

@@ -14,44 +14,56 @@
         android:src="@drawable/ic_icon_person"
         app:civ_border_width="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView9"
+        app:layout_constraintStart_toEndOf="@+id/remove"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.23000002" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/remove"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="15dp"
         android:src="@drawable/ic_remove"
-        app:layout_constraintBottom_toBottomOf="@+id/imageItem"
+        app:layout_constraintBottom_toBottomOf="@+id/btnRate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageItem"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.502"
-        app:tint="@color/transparentBlack" />
+        app:tint="@color/transparentBlack"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/fullName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.title"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.15"
         android:layout_marginStart="5dp"
         app:layout_constraintStart_toEndOf="@+id/imageItem"
         app:layout_constraintTop_toTopOf="@+id/imageItem"
-        tools:text="Nnamani Emmanuel" />
+        tools:text="Nnamani" />
+
+    <TextView
+        android:id="@+id/lNam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toEndOf="@+id/imageItem"
+        app:layout_constraintTop_toBottomOf="@+id/fullName"
+        tools:text="Emmanuel" />
 
     <TextView
         android:id="@+id/skillText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
         android:textAppearance="@style/TextAppearance.title"
         android:textColor="@color/green_900"
         app:layout_constraintStart_toEndOf="@+id/view9"
-        app:layout_constraintTop_toBottomOf="@+id/fullName"
+        app:layout_constraintTop_toBottomOf="@+id/lNam"
         tools:text="Plumber" />
 
     <View
@@ -61,7 +73,7 @@
         android:background="@drawable/blue_circle"
         app:layout_constraintBottom_toBottomOf="@+id/skillText"
         app:layout_constraintStart_toStartOf="@+id/fullName"
-        app:layout_constraintTop_toBottomOf="@+id/fullName" />
+        app:layout_constraintTop_toBottomOf="@+id/lNam" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRate"
@@ -90,7 +102,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnRate"
-        app:layout_constraintTop_toBottomOf="@+id/imageItem" />
+        app:layout_constraintTop_toBottomOf="@+id/skillText" />
 
     <View
         android:layout_width="match_parent"

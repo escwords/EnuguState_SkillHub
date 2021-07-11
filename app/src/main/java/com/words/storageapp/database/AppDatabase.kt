@@ -36,14 +36,14 @@ abstract class AppDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, "skills_db")
-//                .addCallback(object : RoomDatabase.Callback() {
-//                    override fun onCreate(db: SupportSQLiteDatabase) {
-//                        super.onCreate(db)
-//                        //pre-populating the database with dummy data
-//                        val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
-//                        WorkManager.getInstance(context).enqueue(request)
-//                    }
-//                })
+                .addCallback(object : RoomDatabase.Callback() {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        //pre-populating the database with dummy data
+                        val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
+                        WorkManager.getInstance(context).enqueue(request)
+                    }
+                })
                 .fallbackToDestructiveMigration()
                 .build()
         }

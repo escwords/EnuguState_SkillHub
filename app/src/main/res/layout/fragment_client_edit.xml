@@ -34,10 +34,10 @@
             android:id="@+id/constraintLayout5"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             app:cardCornerRadius="10dp"
             app:layout_constraintStart_toEndOf="@+id/backKey"
-            app:layout_constraintTop_toBottomOf="@+id/update_btn"
+            app:layout_constraintTop_toBottomOf="@+id/updateBtn"
             app:strokeColor="@color/blue_700"
             app:strokeWidth="1dp">
 
@@ -72,16 +72,16 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/first_name"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:hint="First Name"
             app:boxStrokeColor="@color/blue_700"
-            app:layout_constraintEnd_toStartOf="@+id/last_name"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
             tools:hint="First Name">
 
@@ -90,21 +90,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:text="@{uiData.userData.first_name}"
                 android:textSize="15sp" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/last_name"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/last_name"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
             app:boxStrokeColor="@color/secondaryDarkColor"
-            app:layout_constraintBottom_toBottomOf="@+id/first_name"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/first_name"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/first_name"
-            app:layout_constraintTop_toTopOf="@+id/first_name"
+            app:layout_constraintStart_toStartOf="@+id/first_name"
+            app:layout_constraintTop_toBottomOf="@+id/first_name"
             tools:hint="@string/last_name">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -112,13 +114,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:text="@{uiData.userData.last_name}"
                 android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/update_btn"
+            android:id="@+id/updateBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -128,8 +129,9 @@
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <ProgressBar
             android:id="@+id/progressBar"

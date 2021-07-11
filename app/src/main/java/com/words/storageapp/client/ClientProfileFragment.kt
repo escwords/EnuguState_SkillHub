@@ -39,6 +39,7 @@ class ClientProfileFragment : Fragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var imageIcon: ImageView
     private lateinit var clientName: TextView
+    private lateinit var clientFName: TextView
     private lateinit var contractListAdapter: ContractListAdapter
     private lateinit var contractRecyclerView: RecyclerView
     private lateinit var databaseReference: DatabaseReference
@@ -52,7 +53,6 @@ class ClientProfileFragment : Fragment() {
         databaseReference = Firebase.database.reference
         contractDbPath = Firebase.database.reference.child("contracts")
         clientDbPath = Firebase.database.reference.child("skills").child(userId)
-
     }
 
     override fun onCreateView(
@@ -69,6 +69,7 @@ class ClientProfileFragment : Fragment() {
         progressBar = view.findViewById(R.id.clientProgress)
         clientName = view.findViewById(R.id.clientName)
         imageIcon = view.findViewById(R.id.clientImage)
+        clientFName = view.findViewById(R.id.lName)
         val notifyBtn = view.findViewById<MaterialButton>(R.id.notify)
         val editBtn = view.findViewById<MaterialButton>(R.id.editBtn)
 
@@ -78,12 +79,21 @@ class ClientProfileFragment : Fragment() {
             ClickListener(
                 { contract ->
                     val action = R.id.action_clientProfileFragment_to_paymentFragment
-                    val bundle = bundleOf("Pay" to contract)
+                    val bundle = bundleOf("pay_laborer" to contract)
                     findNavController().navigate(action, bundle)
 
                 }, { skill ->
                     ratingDialog(skill.laborerId!!)
-                })
+                }, { skill ->
+                    contractDbPath.child(skill.contractId!!).removeValue()
+                        .addOnCompleteListener {
+                            Toast.makeText(
+                                requireContext(), "Item Removed",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                }
+            )
         )
 
         notifyBtn.setOnClickListener {
@@ -92,7 +102,9 @@ class ClientProfileFragment : Fragment() {
         }
 
         editBtn.setOnClickListener {
-
+            val action = R.id.action_clientProfileFragment_to_clientEditFragment
+            val bundle = bundleOf("edit_client" to client)
+            findNavController().navigate(action, bundle)
         }
 
         contractRecyclerView.adapter = contractListAdapter
@@ -140,7 +152,8 @@ class ClientProfileFragment : Fragment() {
                                 client = clientData
                                 progressBar.visibility = View.GONE
                                 clientName.text =
-                                    "${clientData.firstName} ${clientData.lastName}" //use Resource getString here
+                                    "${clientData.firstName}" //use Resource getString here
+                                clientFName.text = "${clientData.lastName}"
 
                                 Glide.with(imageIcon.context)
                                     .load(clientData.imageUrl)

@@ -11,24 +11,36 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/loadingLayout"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:visibility="gone"
+            android:layout_height="500dp"
+            android:visibility="visible"
+            android:layout_marginBottom="80dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            >
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/searchingIcon"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:layout_constraintBottom_toTopOf="@+id/locationProgress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_location_search"
+                tools:ignore="ContentDescription" />
 
             <ProgressBar
                 android:id="@+id/locationProgress"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="50dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView13"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
+                android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -36,28 +48,22 @@
                 android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/locationProgress" />
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <com.google.android.material.button.MaterialButton
+        <TextView
             android:id="@+id/fetchAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Next"
+            android:text="Skip"
+            android:layout_marginEnd="30dp"
             android:textAppearance="@style/TextAppearance.title"
             android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
-            app:icon="@drawable/ic_arrow_forward"
-            app:iconGravity="end"
-            android:visibility="gone"
-            app:iconTint="@color/colorWhite"
+            android:textColor="@color/blue_500"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

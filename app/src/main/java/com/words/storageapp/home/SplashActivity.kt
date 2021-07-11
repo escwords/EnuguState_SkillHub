@@ -18,7 +18,6 @@ class SplashActivity : AppCompatActivity() {
             delay(500)
             startActivity(moveToMainActivity())
             finish()
-
         }
     }
 
