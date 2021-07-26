@@ -2,61 +2,84 @@
   {
     "id": "1",
     "name": "Carpenter",
-    "index": "0"
+    "index": "0",
+    "cats": [
+      "Furniture",
+      "Roofing"
+    ]
   },
   {
     "id": "2",
     "name": "Driver",
-    "index": "1"
+    "index": "1",
+    "cats": [
+      "Car",
+      "Truck"
+    ]
   },
   {
     "id": "3",
     "name": "Electrician",
-    "index": "2"
+    "index": "2",
+    "cats": [
+      "Car",
+      "House",
+      "Factory"
+    ]
   },
   {
     "id": "4",
     "name": "Mason",
-    "index": "3"
+    "index": "3",
+    "cats": [
+      "House",
+      "Factory"
+    ]
   },
   {
     "id": "5",
     "name": "Welder",
-    "index": "4"
+    "index": "4",
+    "cats": [
+      "House",
+      "Factory"
+    ]
   },
   {
     "id": "6",
-    "name": "Roofing",
-    "index": "5"
+    "name": "Plumber",
+    "index": "6",
+    "cats": [
+      "House",
+      "Factory"
+    ]
   },
   {
     "id": "7",
-    "name": "Plumber",
-    "index": "6"
-  },
-  {
-    "id": "8",
     "name": "Painter",
-    "index": "7"
-  },
-  {
-    "id": "9",
-    "name": "Laborer",
-    "index": "8"
-  },
-  {
-    "id": "10",
-    "name": "Ac Repair",
-    "index": "9"
+    "index": "7",
+    "cats": [
+      "House",
+      "Factory"
+    ]
   },
   {
     "id": "11",
     "name": "Mechanic",
-    "index": "10"
+    "index": "10",
+    "cats": [
+      "Car",
+      "Truck",
+      "Motorcycle"
+    ]
   },
   {
     "id": "12",
-    "name": "Sand",
-    "index": "11"
+    "name": "Technician",
+    "index": "11",
+    "cats": [
+      "Electronics",
+      "Appliance"
+    ]
   }
 ]

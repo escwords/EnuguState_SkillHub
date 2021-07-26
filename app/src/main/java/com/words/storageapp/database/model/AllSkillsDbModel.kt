@@ -62,7 +62,9 @@ data class AllSkillsFts(
     @ColumnInfo(name = "skillId") var skillId: String,
     @ColumnInfo(name = "firstName") var firstName: String?,
     @ColumnInfo(name = "lastName") var lastName: String?,
-    @ColumnInfo(name = "skill") var skill: String?
+    @ColumnInfo(name = "skill") var skill: String?,
+    @ColumnInfo(name = "locality") var locality: String?,
+    @ColumnInfo(name = "starNum") var starNum: Double?
 )
 
 data class MiniSkillModel(
@@ -75,6 +77,7 @@ data class MiniSkillModel(
     var locality: String?,
     var imageUrl: String?,
     var latitude: Double?,
-    var longitude: Double?
+    var longitude: Double?,
+    var serviceOffered: String?
 )
 

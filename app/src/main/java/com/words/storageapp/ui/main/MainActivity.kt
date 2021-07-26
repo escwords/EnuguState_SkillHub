@@ -94,7 +94,6 @@ class MainActivity : AppCompatActivity() {
                 destination.id == R.id.editAlbumFragment ||
                 destination.id == R.id.profileImageFragment ||
                 destination.id == R.id.onboardingFragment ||
-                destination.id == R.id.addressDialogFragment ||
                 destination.id == R.id.skillFragment ||
                 destination.id == R.id.adminFragment ||
                 destination.id == R.id.admin_skill_fragment ||
@@ -104,6 +103,7 @@ class MainActivity : AppCompatActivity() {
                 destination.id == R.id.registerFragment ||
                 destination.id == R.id.clientRegistration ||
                 destination.id == R.id.loginFragment ||
+                destination.id == R.id.skillsPagerFragment ||
                 destination.id == R.id.preferenceFragment ||
                 destination.id == R.id.configureFragment
             ) {
@@ -190,36 +190,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-//    @SuppressLint("MissingPermission")
-//    private fun getAddress() {
-//        Timber.i("getAddress called")
-//        fusedLocationProviderClient.lastLocation?.addOnSuccessListener(
-//            this,
-//            OnSuccessListener { location ->
-//                if (location == null) {
-//                    Timber.i("onSuccess::null")
-//                    return@OnSuccessListener
-//                }
-//                lifecycleScope.launch(Dispatchers.IO) {
-//                    val addressModel = AddressModel(
-//                        lastLocation!!.latitude,
-//                        lastLocation!!.longitude
-//                    )
-//                    localDb.addressDao().insertAddress(addressModel)
-//                    storeLocation()
-//                }
-//
-//
-//                if (!Geocoder.isPresent()) {
-//                    Timber.i("OnSuccess::GeoCoder is not present")
-//                    addressNoAvailable()
-//                    return@OnSuccessListener
-//                }
-//                //if address is available don't' find address again
-//                startIntentService()
-//            })
-//    }
 
     private fun stopListening() {
         skillDatabase.removeEventListener(skillListener)

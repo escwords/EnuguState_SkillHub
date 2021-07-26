@@ -1,4 +1,4 @@
-package com.words.storageapp.ui.detail
+package com.words.storageapp.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

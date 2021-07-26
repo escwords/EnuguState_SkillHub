@@ -6,4 +6,9 @@
         android:id="@+id/sign_out"
         android:icon="@drawable/sign_out_36dp"
         app:showAsAction="never" />
+    <item
+        android:title="Complaint"
+        android:id="@+id/complaint"
+        android:icon="@drawable/sign_out_36dp"
+        app:showAsAction="never" />
 </menu>

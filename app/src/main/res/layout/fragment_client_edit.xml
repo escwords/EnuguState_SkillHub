@@ -12,7 +12,7 @@
         <ImageView
             android:id="@+id/backKey"
             android:layout_width="30dp"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:layout_margin="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -50,6 +50,7 @@
                     android:id="@+id/profilePics_edit"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:scaleType="centerCrop"
                     android:contentDescription="@string/profile_picture"
                     android:src="@drawable/ic_icon_person"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -58,7 +59,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/changeIcon_btn"
+                    android:id="@+id/changeIconBtn"
                     android:layout_width="40dp"
                     android:layout_height="50dp"
                     app:layout_constraintBottom_toBottomOf="@+id/profilePics_edit"
@@ -74,7 +75,7 @@
             android:id="@+id/first_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="26dp"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:hint="First Name"
@@ -141,7 +142,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

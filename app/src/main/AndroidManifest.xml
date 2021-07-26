@@ -27,10 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:screenOrientation="portrait"></activity>
-
+        <activity android:name=".ui.main.MainActivity" />
         <service
             android:name=".util.utilities.FetchAddressIntentService"
             android:exported="false" />

@@ -52,7 +52,7 @@ class ClientProfileFragment : Fragment() {
         val userId = firebaseAuth.currentUser!!.uid
         databaseReference = Firebase.database.reference
         contractDbPath = Firebase.database.reference.child("contracts")
-        clientDbPath = Firebase.database.reference.child("skills").child(userId)
+        clientDbPath = Firebase.database.reference.child("clients").child(userId)
     }
 
     override fun onCreateView(
@@ -103,8 +103,10 @@ class ClientProfileFragment : Fragment() {
 
         editBtn.setOnClickListener {
             val action = R.id.action_clientProfileFragment_to_clientEditFragment
-            val bundle = bundleOf("edit_client" to client)
-            findNavController().navigate(action, bundle)
+            client?.let {
+                val bundle = bundleOf("edit_client" to client)
+                findNavController().navigate(action, bundle)
+            }
         }
 
         contractRecyclerView.adapter = contractListAdapter
@@ -118,8 +120,18 @@ class ClientProfileFragment : Fragment() {
                     findNavController().navigate(action)
                     true
                 }
+                R.id.complaint -> {
+                    val action = R.id.action_clientProfileFragment_to_complaintFragment
+                    findNavController().navigate(action)
+                    true
+                }
+
                 else -> false
             }
+        }
+
+        if (client != null) {
+            hideProgress()
         }
         return view
     }
@@ -134,10 +146,12 @@ class ClientProfileFragment : Fragment() {
         contractDbPath.orderByChild("clientId")
             .equalTo(clientId)
             .addValueEventListener(listener)
+
+        Timber.i("clientId: $clientId")
     }
 
     private fun fetchClient() {
-        progressBar.visibility = View.VISIBLE
+        showProgress()
         clientDbPath.addListenerForSingleValueEvent(
             object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
@@ -148,7 +162,7 @@ class ClientProfileFragment : Fragment() {
                     lifecycleScope.launch {
                         snapshot.getValue(FirebaseUser::class.java)
                             ?.also { clientData ->
-
+                                // hideProgress()
                                 client = clientData
                                 progressBar.visibility = View.GONE
                                 clientName.text =
@@ -247,6 +261,14 @@ class ClientProfileFragment : Fragment() {
         )
     }
 
+    fun showProgress() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        progressBar.visibility = View.GONE
+    }
+
     private fun setUpListener() {
         listener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
@@ -257,6 +279,7 @@ class ClientProfileFragment : Fragment() {
                 lifecycleScope.launch {
                     snapshot.children.mapNotNull { it.getValue(FirebaseContract::class.java) }
                         .also { contracts ->
+                            hideProgress()
                             contractListAdapter.submitList(contracts)
                         }
                 }

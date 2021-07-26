@@ -1,4 +1,4 @@
-package com.words.storageapp.home
+package com.words.storageapp.skills
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer

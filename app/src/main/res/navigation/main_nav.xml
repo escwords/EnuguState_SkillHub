@@ -58,7 +58,7 @@
 
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.words.storageapp.ui.detail.AboutFragment"
+        android:name="com.words.storageapp.home.AboutFragment"
         android:label="AboutFragment"
         tools:layout="@layout/fragment_about" />
 
@@ -109,17 +109,6 @@
         android:name="com.words.storageapp.home.SplashTwoFragment"
         android:label="fragment_splash_two"
         tools:layout="@layout/fragment_splash_two" />
-    <dialog
-        android:id="@+id/addressDialogFragment"
-        android:name="com.words.storageapp.preference.AddressDialogFragment"
-        android:label="AddressDialogFragment"
-        tools:layout="@layout/address_list_layout">
-        <action
-            android:id="@+id/action_addressDialogFragment_to_startFragment"
-            app:destination="@id/startFragment"
-            app:popUpTo="@id/startFragment"
-            app:popUpToInclusive="true" />
-    </dialog>
     <fragment
         android:id="@+id/startFragment"
         android:name="com.words.storageapp.home.StartFragment"
@@ -138,6 +127,9 @@
         <action
             android:id="@+id/action_startFragment_to_preferenceFragment"
             app:destination="@id/preferenceFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_skillsPagerFragment"
+            app:destination="@id/skillsPagerFragment" />
     </fragment>
     <activity
         android:id="@+id/splashActivity"
@@ -146,7 +138,7 @@
         tools:layout="@layout/activity_splash" />
     <fragment
         android:id="@+id/skillFragment"
-        android:name="com.words.storageapp.home.SkillFragment"
+        android:name="com.words.storageapp.skills.SkillFragment"
         android:label="fragment_skill"
         tools:layout="@layout/fragment_skill">
         <action
@@ -258,10 +250,22 @@
         <action
             android:id="@+id/action_clientProfileFragment_to_clientEditFragment"
             app:destination="@id/clientEditFragment" />
+        <action
+            android:id="@+id/action_clientProfileFragment_to_complaintFragment"
+            app:destination="@id/complaintFragment" />
     </fragment>
     <fragment
         android:id="@+id/clientEditFragment"
         android:name="com.words.storageapp.client.ClientEditFragment"
         android:label="ClientEditFragment"
         tools:layout="@layout/fragment_client_edit" />
+    <fragment
+        android:id="@+id/skillsPagerFragment"
+        android:name="com.words.storageapp.skills.SkillsPagerFragment"
+        android:label="fragment_skills_pager"
+        tools:layout="@layout/fragment_skills_pager">
+        <action
+            android:id="@+id/action_skillsPagerFragment_to_skilledFragment2"
+            app:destination="@id/skilledFragment2" />
+    </fragment>
 </navigation>

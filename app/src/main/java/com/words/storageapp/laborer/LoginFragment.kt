@@ -27,6 +27,7 @@ import com.words.storageapp.domain.toLoggedInUser
 import com.words.storageapp.laborer.viewProfile.ProfileViewModel
 import com.words.storageapp.ui.main.MainActivity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -65,24 +66,21 @@ class LoginFragment : Fragment() {
 
         binding.login.setOnClickListener {
             (activity as MainActivity).hideKeyBoard(this.requireView())
-            signInUser(logEmail.text.toString(), logPassWord.text.toString())
+            val email = logEmail.text.toString()
+            if (email == "admin") {
+                val action = R.id.action_loginFragment_to_contentFragment
+                findNavController().navigate(action)
+            } else if (validate()) {
+                signInUser(logEmail.text.toString(), logPassWord.text.toString())
+            }
         }
 
         binding.clsBtn.setOnClickListener {
             findNavController().popBackStack()
         }
 
-//        binding.registerBtn.setOnClickListener {
-//            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
-//        }
-
         binding.clientRegisterBtn.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_clientRegistration)
-        }
-
-        binding.btnForward.setOnClickListener {
-            (activity as MainActivity).hideKeyBoard(this.requireView())
-            signInUser(logEmail.text.toString(), logPassWord.text.toString())
         }
 
         return binding.root
@@ -129,55 +127,67 @@ class LoginFragment : Fragment() {
 
     private fun signInUser(email: String, password: String) {
         // [START sign_in_with_email]
-        if (email == "admin") {
-            val action = R.id.action_loginFragment_to_contentFragment
-            findNavController().navigate(action)
-
-        } else { //call validate() in else if condition
-
-            progressBar.visibility = View.VISIBLE
-            firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Timber.i("signInWithEmail:success")
-                        val userId = task.result!!.user!!.uid
-                        val queryDoc = remoteDb.child("clients").child(userId)
-
-                        queryDoc.get().addOnSuccessListener {
-                            lifecycleScope.launch(Dispatchers.Main) {
-                                it.getValue(FirebaseUser::class.java)?.let { user ->
-                                    if (user.accountStatus != null &&
-                                        user.accountStatus == "Active"
-                                    ) {
-                                        val action =
-                                            R.id.action_loginFragment_to_clientProfileFragment
-                                        findNavController().navigate(action)
-
-                                    } else if (user.accountStatus != null
-                                    ) {
-                                        Toast.makeText(
-                                            requireContext(), "Admin Signed In",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    } else {
-                                        showSnackBar { "Account is pending activation" }
-                                    }
-                                }
-                            }
-                        }.addOnFailureListener {
-                            firebaseAuth.signOut()
-                            showSnackBar { "Unable to Sign In: ${it.message}" }
-                        }
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Timber.e("signInWithEmail:failure ${task.exception}")
-                        progressBar.visibility = View.GONE
-                        showSnackBar { "Sign In Failed, Check your Internet Connection: ${task.exception}" }
+        showProgressBar()
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Timber.i("signInWithEmail:success")
+                    val userId = task.result!!.user!!.uid
+//                        val queryDoc = remoteDb.child("clients").child(userId)
+//
+//                        queryDoc.get().addOnSuccessListener {
+//                            lifecycleScope.launch(Dispatchers.Main) {
+//                                it.getValue(FirebaseUser::class.java)?.let { user ->
+//                                    if (user.accountStatus != null &&
+//                                        user.accountStatus == "Active"
+//                                    ) {
+//                                        val action =
+//                                            R.id.action_loginFragment_to_clientProfileFragment
+//                                        findNavController().navigate(action)
+//
+//                                    } else if (user.accountStatus != null
+//                                    ) {
+//                                        Toast.makeText(
+//                                            requireContext(), "Admin Signed In",
+//                                            Toast.LENGTH_SHORT
+//                                        ).show()
+//                                    } else {
+//                                        showSnackBar { "Account is pending activation" }
+//                                    }
+//                                }
+//                            }
+                    showSnackBar { "Your have successfully Logged In" }
+                    val action = R.id.action_loginFragment_to_clientProfileFragment
+                    findNavController().navigate(action)
+                    lifecycleScope.launchWhenStarted {
+                        delay(5000)
+                        showSnackBar { "Timed Out: Cannot not Log In" }
+                        hideProgressBar()
                     }
+                } else {
+                    // If sign in fails, display a message to the user.
+                    lifecycleScope.launch {
+                        hideProgressBar()
+                    }
+                    showSnackBar { "Sign In Failed, Check your Internet Connection: ${task.exception}" }
                 }
-        }
+            }.addOnFailureListener {
+                firebaseAuth.signOut()
+                lifecycleScope.launch {
+                    hideProgressBar()
+                }
+                showSnackBar { "Unable to Sign In: ${it.message}" }
+            }
     }//end of SignIn User
+
+    private fun showProgressBar() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressBar() {
+        progressBar.visibility = View.GONE
+    }
 
     //if Snack bar does not show on screen try setting the id inside viewGroup in Authentication layout
     private fun showSnackBar(call: () -> String) {

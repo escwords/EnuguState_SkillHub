@@ -115,8 +115,12 @@ class LocationFragment : Fragment() {
         loadingView = binding.loadingLayout
         val searchImage = binding.searchingIcon
         animateWarning(searchImage)
-
         setUpOnBackPressedCallback()
+
+        binding.fetchAddress.setOnClickListener {
+            navigateToStartScreen()
+        }
+
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, callback)
         return binding.root
     }
@@ -153,6 +157,7 @@ class LocationFragment : Fragment() {
         }
     }
 
+
     private fun setUpUI() {
         networkConnection?.apply {
             lifecycle.addObserver(this)
@@ -161,12 +166,12 @@ class LocationFragment : Fragment() {
             })
         }
         if (network) {
-            //createLocationRequest()
-            navigateToStartScreen()
+            createLocationRequest()
+            //navigateToStartScreen()
         } else {
             hideLoading()
-            //noLocationDialog()
-            navigateToStartScreen()
+            noLocationDialog()
+            //navigateToStartScreen()
         }
     }
 
@@ -180,6 +185,7 @@ class LocationFragment : Fragment() {
         (activity as MainActivity).daggerAppLevelComponent.inject(this)
     }
 
+    //creating location request
     private fun createLocationRequest() {
 
         val builder = locationRequest?.let {
@@ -212,6 +218,7 @@ class LocationFragment : Fragment() {
         }
     }
 
+    //caching the state of onboarding screen
     private fun onBoarding() {
         with(sharedPreferences.edit()) {
             putBoolean("OnBoarding", true)
@@ -219,6 +226,7 @@ class LocationFragment : Fragment() {
         }
     }
 
+    //this function animates the location icon
     private fun animateWarning(icon: ImageView) {
         val prevColor = Color.parseColor("#E6FBFFFF")
         val newColor = Color.parseColor("#EC2020")
@@ -478,42 +486,4 @@ class LocationFragment : Fragment() {
         loadingView.visibility = View.GONE
     }
 
-    private fun prefetchFromFirebase() {
-        //show a loading progressBar
-        skillDbPath.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-                firebaseError()
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                snapshot.children.mapNotNull {
-                    it.getValue(FirebaseUser::class.java)?.toAllSkillsModel()
-                }
-                    .also { skills ->
-                        CoroutineScope(Dispatchers.IO).launch {
-                            Timber.i("laborers: $skills")
-                            localDb.allSkillsDbDao().insertAll(skills)
-
-                            withContext(Dispatchers.Main) {
-                                navigateToStartScreen()
-                            }
-                        }
-                    }
-            }
-        })
-    }
-
-    private fun loadDataFromAsset() {
-        showLoading()
-        onBoarding()
-        val request =
-            OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
-        WorkManager.getInstance(requireContext()).enqueue(request)
-
-        lifecycleScope.launch(Dispatchers.Main) {
-            delay(5000)
-            hideLoading()
-            navigateToStartScreen()
-        }
-    }
 }

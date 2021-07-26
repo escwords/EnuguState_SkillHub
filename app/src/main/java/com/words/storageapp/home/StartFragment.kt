@@ -29,6 +29,7 @@ import com.words.storageapp.util.utilities.getJsonFromAsset
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -56,7 +57,6 @@ class StartFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_start, container, false)
         startRecycler = view.findViewById(R.id.startRecycler)
-        val searchTab = view.findViewById<TextView>(R.id.searchBtn)
         val settingBtn = view.findViewById<ImageView>(R.id.option)
 
         setUpOnBackPressedCallback()
@@ -66,11 +66,6 @@ class StartFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        searchTab.setOnClickListener {
-            val action =
-                R.id.action_startFragment_to_searchFragment
-            findNavController().navigate(action)
-        }
 
         if (!showOnBoarding) {
             val action = R.id.action_startFragment_to_onboardingFragment
@@ -113,15 +108,16 @@ class StartFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         lifecycleScope.launch(Dispatchers.IO) {
             val startData = getJsonFromAsset(requireContext(), START_SKILL)
+            Timber.i("startData :$startData")
 
             withContext(Dispatchers.Main) {
                 val startAdapter =
                     StartListAdapter(
                         startData,
                         ItemClickListener { data ->
-                            val bundle = bundleOf("SKILL_TYPE" to data.name)
+                            val bundle = bundleOf("SKILL_TYPE" to data)
                             val action =
-                                R.id.action_startFragment_to_skillFragment
+                                R.id.action_startFragment_to_skillsPagerFragment
                             findNavController().navigate(action, bundle)
                         })
                 startRecycler.adapter = startAdapter

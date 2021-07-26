@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -73,6 +74,8 @@ class SkilledFragment : Fragment() {
     private lateinit var callBtn: MaterialButton
     private lateinit var ratingNum: TextView
     private lateinit var ratingBar: RatingBar
+    private lateinit var commentsCard: MaterialCardView
+
     private var currentPager = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,6 +101,8 @@ class SkilledFragment : Fragment() {
         val binding = FragmentDetail2Binding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.detailModel = detailViewModel
+        commentsCard = binding.commentCard
+
         callBtn = binding.callBtn
         hireBtn = binding.hireBtn
         commentsViewPager = binding.commentPager
@@ -113,10 +118,12 @@ class SkilledFragment : Fragment() {
 
             val comments = skill.comments.toDomainComment()
             if (comments.isEmpty()) {
+                hideCommentCard()
                 showSnackBar { "No Comments" }
             }
+            Timber.i("result: $comments")
 
-            val commentAdapter = CommentPager(this, comments)
+            val commentAdapter = CommentPager(this, comments.distinctBy { it.authorId })
             commentsViewPager.adapter = commentAdapter
 
             val handle = Handler()
@@ -254,7 +261,7 @@ class SkilledFragment : Fragment() {
     private fun hireDialog(user: String) {
         MaterialAlertDialogBuilder(requireContext()).apply {
             setTitle("You're About to Hire Laborer.")
-            setPositiveButton("Yes") { dialog, _ ->
+            setPositiveButton("Okay") { dialog, _ ->
                 dialog.dismiss()
                 hireLaborer(user)
             }
@@ -269,12 +276,11 @@ class SkilledFragment : Fragment() {
     private fun notRegistered() {
         MaterialAlertDialogBuilder(requireContext()).apply {
             setTitle("Login to HireLaborer.")
-            setMessage("You can only hire laborer when you have logged in.")
+            setMessage("You can only hire laborer when you are logged in.")
             setPositiveButton("Login") { dialog, _ ->
                 dialog.dismiss()
                 moveToLogin()
             }
-
             setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
             }
@@ -282,11 +288,14 @@ class SkilledFragment : Fragment() {
         }
     }
 
+    fun hideCommentCard() {
+        commentsCard.visibility = View.GONE
+    }
 
     private fun callDialog(number: String) {
         MaterialAlertDialogBuilder(requireContext()).apply {
             setTitle("Call Skilled Laborer.")
-            setMessage("Your are about to leave the app to make a call.")
+            setMessage("Your are about to leave the app to call laborer.")
 
             setPositiveButton("Yes") { dialog, _ ->
                 dialog.dismiss()
@@ -298,6 +307,7 @@ class SkilledFragment : Fragment() {
             }
             show()
         }
+
     }
 
     class CommentPager(

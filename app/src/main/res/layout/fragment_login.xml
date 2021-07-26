@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="80dp"
             android:background="@color/transparentWhite"
             android:elevation="5dp"
             android:fontFamily="@font/open_san_extra_bold"
@@ -53,18 +53,6 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline_start"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/btnForward"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_end"
-            app:layout_constraintStart_toStartOf="@+id/clientRegisterBtn"
-            app:layout_constraintTop_toBottomOf="@+id/clientRegisterBtn"
-            app:srcCompat="@drawable/ic_arrow_forward"
-            app:tint="@color/colorWhite"
-            tools:ignore="ContentDescription" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email_textLayout"
@@ -167,11 +155,12 @@
             android:layout_height="wrap_content"
             android:text="Register As Client"
             android:textAllCaps="false"
+            android:layout_margin="20dp"
             android:textAppearance="@style/TextAppearance.title"
             android:textColor="@color/yellow_700"
             app:layout_constraintEnd_toEndOf="@+id/login"
             app:layout_constraintStart_toStartOf="@+id/login"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5"
+            app:layout_constraintTop_toBottomOf="@+id/textView36"
             app:strokeColor="@color/yellow_700"
             app:strokeWidth="1dp" />
 
@@ -180,10 +169,11 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:backgroundTint="@color/blue_900"
-            android:visibility="invisible"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/login"
             app:layout_constraintStart_toStartOf="@+id/login"
-            app:layout_constraintTop_toBottomOf="@+id/login" />
+            app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
         <ImageView
             android:id="@+id/imageView5"

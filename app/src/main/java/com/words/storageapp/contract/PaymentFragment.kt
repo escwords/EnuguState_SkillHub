@@ -54,9 +54,9 @@ class PaymentFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-//        payBtn.setOnClickListener {
-//           paymentNotice()
-//        }
+        payBtn.setOnClickListener {
+            paymentNotice()
+        }
 
         return view
     }

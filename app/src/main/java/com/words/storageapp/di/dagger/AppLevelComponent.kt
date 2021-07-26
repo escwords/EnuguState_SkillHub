@@ -1,7 +1,7 @@
 package com.words.storageapp.di.dagger
 
 import android.content.Context
-import com.words.storageapp.home.SkillFragment
+import com.words.storageapp.skills.SkillFragment
 import com.words.storageapp.home.StartFragment
 import com.words.storageapp.authentication.ProcessFragment
 import com.words.storageapp.preference.LocationFragment
@@ -9,6 +9,7 @@ import com.words.storageapp.preference.PreferenceFragment
 import com.words.storageapp.laborer.LoginFragment
 import com.words.storageapp.laborer.viewProfile.ProfileFragment
 import com.words.storageapp.cms.providers.ProfileEditFragment
+import com.words.storageapp.skills.SkillsItemFragment
 import com.words.storageapp.ui.detail.SkilledFragment
 import com.words.storageapp.ui.main.MainActivity
 import com.words.storageapp.ui.search.SearchFragment
@@ -37,6 +38,7 @@ interface AppLevelComponent {
     fun inject(fragment: PreferenceFragment)
     fun inject(fragment: SkillFragment)
     fun inject(fragment: StartFragment)
+    fun inject(fragment: SkillsItemFragment)
     fun searchComponent(): SearchComponent.Factory
 
 }
